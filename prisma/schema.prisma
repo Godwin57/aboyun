@@ -1,0 +1,370 @@
+// Aboyun data model. Prisma 7: connection URL lives in prisma.config.ts.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ───────────────────────── Enums ─────────────────────────
+
+enum Role {
+  SYSTEM_ADMIN
+  MOTHER
+  CLINIC
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum MotherStatus {
+  PREGNANT
+  POSTNATAL
+}
+
+enum VisitKind {
+  ANC
+  PNC
+}
+
+/// Where an event came from.
+enum Channel {
+  APP
+  USSD
+  SMS
+}
+
+enum SymptomResult {
+  OK
+  CLINIC_SOON
+  GO_NOW
+}
+
+enum EmergencyKind {
+  BLEEDING
+  LABOUR
+  FITS
+  BABY
+  OTHER
+}
+
+enum EmergencyStatus {
+  OPEN
+  ACKNOWLEDGED
+  REFERRED
+  CLOSED
+}
+
+enum ReminderKind {
+  VISIT
+  TABLET
+  VACCINE
+}
+
+enum ReminderStatus {
+  PENDING
+  SENT
+  CONFIRMED
+  MISSED
+}
+
+enum ActorType {
+  USER
+  USSD
+  SMS
+  CRON
+}
+
+// ───────────────────── Auth (Better Auth) ─────────────────────
+
+model User {
+  id                  String   @id @default(uuid())
+  name                String
+  /// Better Auth requires an email. Phone-only mothers get a generated placeholder address.
+  email               String   @unique
+  emailVerified       Boolean  @default(false)
+  image               String?
+  phoneNumber         String?  @unique
+  phoneNumberVerified Boolean  @default(false)
+  role                Role     @default(MOTHER)
+  facilityId          String?
+  active              Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  facility       Facility?  @relation(fields: [facilityId], references: [id], onDelete: SetNull)
+  sessions       Session[]
+  accounts       Account[]
+  motherProfile  Mother?
+  recordedVisits Visit[]
+  auditLogs      AuditLog[]
+
+  @@index([facilityId])
+  @@index([role])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  expiresAt DateTime
+  token     String   @unique
+  ipAddress String?
+  userAgent String?
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ───────────────────── Facilities ─────────────────────
+
+model Area {
+  id         String     @id @default(uuid())
+  name       String
+  state      String
+  lga        String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  facilities Facility[]
+
+  @@index([state, lga])
+}
+
+model Facility {
+  id          String   @id @default(uuid())
+  name        String
+  areaId      String
+  phone       String
+  email       String?
+  hasCSection Boolean  @default(false)
+  hasBlood    Boolean  @default(false)
+  lat         Float?
+  lng         Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  area                Area        @relation(fields: [areaId], references: [id])
+  users               User[]
+  mothers             Mother[]
+  emergencies         Emergency[] @relation("EmergencyFacility")
+  referredEmergencies Emergency[] @relation("EmergencyReferral")
+
+  @@index([areaId])
+}
+
+// ───────────────────── Patients ─────────────────────
+
+model Mother {
+  id         String       @id @default(uuid())
+  userId     String?      @unique
+  name       String
+  phone      String?
+  email      String?
+  language   String       @default("en")
+  lmp        DateTime
+  edd        DateTime
+  facilityId String
+  riskLevel  RiskLevel    @default(LOW)
+  status     MotherStatus @default(PREGNANT)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  user           User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  facility       Facility        @relation(fields: [facilityId], references: [id])
+  familyContacts FamilyContact[]
+  visits         Visit[]
+  symptomReports SymptomReport[]
+  riskFlags      RiskFlag[]
+  emergencies    Emergency[]
+  reminders      Reminder[]
+  babies         Baby[]
+
+  @@index([facilityId])
+  @@index([phone])
+  @@index([riskLevel])
+  @@index([status])
+}
+
+model FamilyContact {
+  id        String   @id @default(uuid())
+  motherId  String
+  name      String
+  phone     String?
+  email     String?
+  relation  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mother Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+
+  @@index([motherId])
+}
+
+model Visit {
+  id           String    @id @default(uuid())
+  motherId     String
+  kind         VisitKind
+  dueDate      DateTime
+  attendedAt   DateTime?
+  bpSys        Int?
+  bpDia        Int?
+  weightKg     Float?
+  hbGdl        Float?
+  signs        Json      @default("{}")
+  recordedById String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  mother     Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+  recordedBy User?  @relation(fields: [recordedById], references: [id], onDelete: SetNull)
+
+  @@index([motherId])
+  @@index([dueDate])
+  @@index([recordedById])
+}
+
+model SymptomReport {
+  id        String        @id @default(uuid())
+  motherId  String
+  source    Channel
+  signs     Json
+  result    SymptomResult
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  mother Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+
+  @@index([motherId])
+  @@index([result])
+}
+
+model RiskFlag {
+  id         String    @id @default(uuid())
+  motherId   String
+  reason     String
+  level      RiskLevel
+  /// Id of the Visit or SymptomReport that raised the flag.
+  sourceId   String?
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  mother Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+
+  @@index([motherId])
+  @@index([level])
+}
+
+model Emergency {
+  id             String          @id @default(uuid())
+  motherId       String
+  source         Channel
+  kind           EmergencyKind
+  status         EmergencyStatus @default(OPEN)
+  facilityId     String
+  referredToId   String?
+  acknowledgedAt DateTime?
+  closedAt       DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  mother     Mother    @relation(fields: [motherId], references: [id], onDelete: Cascade)
+  facility   Facility  @relation("EmergencyFacility", fields: [facilityId], references: [id])
+  referredTo Facility? @relation("EmergencyReferral", fields: [referredToId], references: [id])
+
+  @@index([motherId])
+  @@index([facilityId])
+  @@index([referredToId])
+  @@index([status])
+}
+
+model Reminder {
+  id          String         @id @default(uuid())
+  motherId    String
+  kind        ReminderKind
+  dueAt       DateTime
+  status      ReminderStatus @default(PENDING)
+  sentAt      DateTime?
+  confirmedAt DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  mother Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+
+  @@index([motherId])
+  @@index([dueAt])
+  @@index([status, dueAt])
+}
+
+model Baby {
+  id            String   @id @default(uuid())
+  motherId      String
+  birthDate     DateTime
+  sex           String?
+  birthWeightKg Float?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  mother Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+
+  @@index([motherId])
+}
+
+model AuditLog {
+  id        String    @id @default(uuid())
+  actorId   String?
+  actorType ActorType
+  action    String
+  entity    String
+  entityId  String
+  at        DateTime  @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([entity, entityId])
+  @@index([at])
+}
