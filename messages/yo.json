@@ -1,0 +1,54 @@
+{
+  "Common": {
+    "language": "Èdè",
+    "signOut": "Jáde"
+  },
+  "Auth": {
+    "shell": {
+      "tagline": "Ààbò fún gbogbo ìyá.",
+      "privacy": "Àṣírí ni àkọsílẹ̀ ìlera rẹ."
+    },
+    "login": {
+      "title": "Káàbọ̀ padà",
+      "subtitle": "Wọlé láti tẹ̀síwájú.",
+      "identifier": "Nọ́ńbà fóònù tàbí ímeèlì",
+      "identifierPlaceholder": "0803 123 4567",
+      "password": "Ọ̀rọ̀ aṣínà",
+      "submit": "Wọlé",
+      "submitting": "Ń wọlé…",
+      "wrong": "Nọ́ńbà fóònù, ímeèlì tàbí ọ̀rọ̀ aṣínà kò tọ́.",
+      "help": "Ilé ìwòsàn rẹ yóò forúkọ rẹ sílẹ̀, yóò sì fi ímeèlì ránṣẹ́ sí ọ láti ṣètò ọ̀rọ̀ aṣínà rẹ."
+    },
+    "invite": {
+      "expiredTitle": "Ìjápọ̀ yìí ti parí",
+      "expiredBody": "Ìjápọ̀ ìkésí ṣiṣẹ́ lẹ́ẹ̀kan, ó sì wà fún ọjọ́ 7. Bẹ ẹgbẹ́ Aboyun kí wọ́n fi òmíràn ránṣẹ́ sí ọ, tàbí wọlé tí o bá ti ṣètò ọ̀rọ̀ aṣínà rẹ.",
+      "goToSignIn": "Lọ sí ibi ìwọlé",
+      "welcome": "Káàbọ̀, {name}",
+      "choose": "Yan ọ̀rọ̀ aṣínà fún {email}.",
+      "newPassword": "Ọ̀rọ̀ aṣínà tuntun",
+      "confirm": "Tún ọ̀rọ̀ aṣínà náà kọ",
+      "hint": "Ó kéré jù ní àmì 8.",
+      "submit": "Ṣètò ọ̀rọ̀ aṣínà kí o tẹ̀síwájú",
+      "submitting": "Ń fipamọ́…",
+      "invalid": "Ìjápọ̀ yìí kò tọ́ tàbí ó ti parí. Bẹ ẹgbẹ́ Aboyun fún òmíràn.",
+      "failed": "A kò lè ṣètò ọ̀rọ̀ aṣínà rẹ. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+    }
+  },
+  "Errors": {
+    "identifierRequired": "Fi nọ́ńbà fóònù tàbí ímeèlì rẹ sí i",
+    "identifierInvalid": "Fi nọ́ńbà fóònù Nàìjíríà tàbí ímeèlì tó tọ́ sí i",
+    "passwordRequired": "Fi ọ̀rọ̀ aṣínà rẹ sí i",
+    "passwordMin": "Lo àmì 8 tàbí jù bẹ́ẹ̀ lọ",
+    "passwordMax": "Ọ̀rọ̀ aṣínà gùn jù",
+    "passwordMismatch": "Àwọn ọ̀rọ̀ aṣínà kò jọra"
+  },
+  "Email": {
+    "inviteSubject": "A ti késí ọ sí Aboyun",
+    "inviteIntro": "A ti forúkọ rẹ sílẹ̀ lórí Aboyun. Lo ìjápọ̀ tó wà nísàlẹ̀ yìí láti ṣètò ọ̀rọ̀ aṣínà rẹ kí o sì wọlé.",
+    "resetSubject": "Tún ọ̀rọ̀ aṣínà Aboyun rẹ ṣe",
+    "resetIntro": "Lo ìjápọ̀ tó wà nísàlẹ̀ yìí láti yan ọ̀rọ̀ aṣínà tuntun.",
+    "button": "Ṣètò ọ̀rọ̀ aṣínà mi",
+    "footer": "Ìjápọ̀ yìí ṣiṣẹ́ lẹ́ẹ̀kan, yóò sì parí lẹ́yìn ọjọ́ 7.",
+    "sms": "Aboyun: ṣètò ọ̀rọ̀ aṣínà rẹ níbí: {url}"
+  }
+}

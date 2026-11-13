@@ -1,0 +1,54 @@
+{
+  "Common": {
+    "language": "Language",
+    "signOut": "Sign out"
+  },
+  "Auth": {
+    "shell": {
+      "tagline": "Make every mama dey safe and well.",
+      "privacy": "Your health records dey private."
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in make you continue.",
+      "identifier": "Phone number or email",
+      "identifierPlaceholder": "0803 123 4567",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Dey sign you in…",
+      "wrong": "Phone number, email or password no correct.",
+      "help": "Your clinic go register you and send email give you make you set your password."
+    },
+    "invite": {
+      "expiredTitle": "This link don expire",
+      "expiredBody": "Invite link dey work one time and e dey last 7 days. Ask Aboyun team make dem send new one, or sign in if you don already set your password.",
+      "goToSignIn": "Go sign in",
+      "welcome": "Welcome, {name}",
+      "choose": "Choose password for {email}.",
+      "newPassword": "New password",
+      "confirm": "Confirm password",
+      "hint": "At least 8 characters.",
+      "submit": "Set password and continue",
+      "submitting": "Dey save…",
+      "invalid": "This link no work or e don expire. Ask Aboyun team for new one.",
+      "failed": "We no fit set your password. Abeg try again."
+    }
+  },
+  "Errors": {
+    "identifierRequired": "Enter your phone number or email",
+    "identifierInvalid": "Enter correct Nigerian phone number or email",
+    "passwordRequired": "Enter your password",
+    "passwordMin": "Use at least 8 characters",
+    "passwordMax": "Password too long",
+    "passwordMismatch": "Passwords no match"
+  },
+  "Email": {
+    "inviteSubject": "Dem don invite you to Aboyun",
+    "inviteIntro": "Dem don register you for Aboyun. Use the link below set your password and sign in.",
+    "resetSubject": "Reset your Aboyun password",
+    "resetIntro": "Use the link below choose new password.",
+    "button": "Set my password",
+    "footer": "This link dey work one time and e go expire after 7 days.",
+    "sms": "Aboyun: set your password here: {url}"
+  }
+}

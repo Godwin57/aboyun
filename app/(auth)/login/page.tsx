@@ -1,10 +1,13 @@
-// TODO: login UI.
-// - Mothers: email OR phone number, then the one-time code (authClient.emailOtp / authClient.phoneNumber).
-// - Clinic and admin staff: email + password (authClient.signIn.email).
+import type { Metadata } from "next";
+import { AuthShell } from "@/components/auth/auth-shell";
+import { LoginCard } from "@/components/auth/login-card";
+
+export const metadata: Metadata = { title: "Sign in" };
+
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center p-6">
-      <h1 className="text-2xl font-semibold">Sign in</h1>
-    </main>
+    <AuthShell>
+      <LoginCard />
+    </AuthShell>
   );
 }

@@ -23,8 +23,14 @@ export async function proxy(request: NextRequest) {
 
   const home = roleHome(role ?? "MOTHER");
 
-  // Signed-in users do not need the login page.
-  if (pathname === "/login") return NextResponse.redirect(new URL(home, request.url));
+  // Signed-in users do not need the login page. Only redirect page loads: server
+  // actions are POSTed to /login right after sign-in and must not be redirected.
+  if (pathname === "/login") {
+    if (request.method === "GET" || request.method === "HEAD") {
+      return NextResponse.redirect(new URL(home, request.url));
+    }
+    return NextResponse.next();
+  }
 
   // Each role may only open its own area; anything else goes to their own home.
   const area = Object.keys(AREA_ROLE).find(

@@ -3,7 +3,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { deflateSync } from "node:zlib";
 
-const BG = [0xbe, 0x18, 0x5d]; // theme colour
+const BG = [0x0f, 0x76, 0x6e]; // theme colour
 const FG = [0xff, 0xff, 0xff];
 
 function crc32(buf) {
