@@ -1,7 +1,6 @@
 import AfricasTalking from "africastalking";
 
-// TODO: Africa's Talking client for SMS (and USSD helpers). Created lazily so the
-// build does not need credentials.
+// Africa's Talking client, created lazily so the build does not need credentials.
 let client: ReturnType<typeof AfricasTalking> | null = null;
 
 function getClient() {
@@ -14,10 +13,15 @@ function getClient() {
   return client;
 }
 
-/** Send an SMS to one or more numbers (international format, e.g. +234...). */
+/**
+ * Send an SMS (international format, e.g. +234...).
+ * Without AT_API_KEY (local dev) the message is printed to the server console,
+ * so one-time codes can be copied from the terminal.
+ * TODO: wire Africa's Talking credentials and delivery reports.
+ */
 export async function sendSms(to: string | string[], message: string) {
   if (!process.env.AT_API_KEY) {
-    console.warn(`[sms] AT_API_KEY not set. Would send to ${String(to)}: ${message}`);
+    console.log(`\n[sms:dev] To: ${String(to)}\n[sms:dev] ${message}\n`);
     return;
   }
   return getClient().SMS.send({ to: Array.isArray(to) ? to : [to], message });

@@ -5,17 +5,22 @@ import { addDays, addWeeks } from "date-fns";
 import { PrismaClient } from "../lib/generated/prisma/client";
 
 const db = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+    connectionTimeoutMillis: 15_000, // Neon can be waking from scale-to-zero
+  }),
 });
 
 // Dev-only credentials for the seeded staff accounts. Never use these in production.
 const SEED_PASSWORD = process.env.SEED_PASSWORD ?? "ChangeMe123!";
 
+/** Create a user (if missing) with a ready-made password, skipping the invite email. */
 async function upsertStaff(opts: {
   email: string;
   name: string;
-  role: "SYSTEM_ADMIN" | "CLINIC";
+  role: "SYSTEM_ADMIN" | "CLINIC" | "MOTHER";
   facilityId?: string;
+  phoneNumber?: string;
 }) {
   const user = await db.user.upsert({
     where: { email: opts.email },
@@ -25,6 +30,8 @@ async function upsertStaff(opts: {
       name: opts.name,
       role: opts.role,
       facilityId: opts.facilityId,
+      phoneNumber: opts.phoneNumber,
+      phoneNumberVerified: !!opts.phoneNumber,
       emailVerified: true,
     },
   });
@@ -85,17 +92,12 @@ async function main() {
     facilityId: phc.id,
   });
 
-  // Demo mother, linked to a login so /mother can be tried (phone one-time code).
-  const motherUser = await db.user.upsert({
-    where: { email: "2348000000100@phone.aboyun.invalid" },
-    update: {},
-    create: {
-      email: "2348000000100@phone.aboyun.invalid",
-      name: "Demo Mother",
-      phoneNumber: "+2348000000100",
-      phoneNumberVerified: true,
-      role: "MOTHER",
-    },
+  // Demo mother, linked to a login so /mother can be tried (email or phone + password).
+  const motherUser = await upsertStaff({
+    email: "mother@aboyun.test",
+    name: "Demo Mother",
+    role: "MOTHER",
+    phoneNumber: "+2348000000100",
   });
 
   let mother = await db.mother.findUnique({ where: { userId: motherUser.id } });
@@ -120,7 +122,10 @@ async function main() {
   console.log(
     `Seeded. Staff password: ${process.env.SEED_PASSWORD ? "(from SEED_PASSWORD)" : "see prisma/seed.ts"}`,
   );
-  console.log("Logins: admin@aboyun.test (SYSTEM_ADMIN), clinic@aboyun.test (CLINIC)");
+  console.log(
+    "Logins: admin@aboyun.test (SYSTEM_ADMIN), clinic@aboyun.test (CLINIC), " +
+      "mother@aboyun.test or +2348000000100 (MOTHER)",
+  );
   console.log(`Demo mother id: ${mother.id}`);
 }
 

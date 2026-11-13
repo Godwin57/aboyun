@@ -1,24 +1,57 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { emailOTP, phoneNumber } from "better-auth/plugins";
+import { phoneNumber } from "better-auth/plugins";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { db } from "@/lib/db";
-import { sendEmail } from "@/lib/email";
+import { sendInviteMessage } from "@/lib/invite-email";
 import { sendSms } from "@/lib/at";
+import { normalizeNgPhone } from "@/lib/phone";
 import { roleHome, type AppSession } from "@/lib/rbac";
 import type { Role } from "@/lib/generated/prisma/enums";
+
+const OTP_TTL_SECONDS = 5 * 60; // codes live for 5 minutes and work once
+const OTP_MAX_ATTEMPTS = 3;
+const INVITE_TTL_SECONDS = 7 * 24 * 60 * 60; // clinic invites live for 7 days
+const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
 
 export const auth = betterAuth({
   database: prismaAdapter(db, { provider: "postgresql" }),
   baseURL: process.env.BETTER_AUTH_URL,
   secret: process.env.BETTER_AUTH_SECRET,
 
-  // CLINIC and SYSTEM_ADMIN sign in with email + password. Their accounts are
-  // created by us (seed / admin screens), never by public sign-up.
-  emailAndPassword: { enabled: true, disableSignUp: true },
+  // Sessions are random tokens stored in the database and sent in a signed,
+  // HTTP-only, SameSite=Lax cookie (Secure in production).
+  session: {
+    expiresIn: SESSION_TTL_SECONDS,
+    updateAge: 24 * 60 * 60, // slide the expiry at most once a day
+  },
+  advanced: {
+    useSecureCookies: process.env.NODE_ENV === "production",
+    defaultCookieAttributes: { httpOnly: true, sameSite: "lax" },
+  },
+
+  // CLINIC and SYSTEM_ADMIN sign in with email + password. Nobody can sign up
+  // publicly: the Aboyun team creates clinics, and each clinic gets an invite
+  // email. The invite link is a Better Auth "reset password" token, so it is
+  // single-use, expires, and creates the password the first time it is used.
+  emailAndPassword: {
+    enabled: true,
+    disableSignUp: true,
+    minPasswordLength: 8,
+    resetPasswordTokenExpiresIn: INVITE_TTL_SECONDS,
+    revokeSessionsOnPasswordReset: true,
+    async sendResetPassword({ user, url }) {
+      // callbackURL on `url` sends the browser to /accept-invite?token=...
+      await sendInviteMessage(user, url);
+    },
+    async onPasswordReset({ user }) {
+      // Clicking the emailed link proves the address belongs to them.
+      await db.user.update({ where: { id: user.id }, data: { emailVerified: true } });
+    },
+  },
 
   user: {
     additionalFields: {
@@ -29,28 +62,33 @@ export const auth = betterAuth({
     },
   },
 
-  plugins: [
-    // MOTHER: one-time code by email...
-    emailOTP({
-      async sendVerificationOTP({ email, otp }) {
-        // TODO: proper email template; handle the "forget-password" / "email-verification" types.
-        await sendEmail({
-          to: email,
-          subject: "Your Aboyun sign-in code",
-          html: `<p>Your code is <strong>${otp}</strong>. It expires in 5 minutes.</p>`,
-        });
+  databaseHooks: {
+    session: {
+      create: {
+        // Deactivated users cannot start a session.
+        before: async (session) => {
+          const user = await db.user.findUnique({
+            where: { id: session.userId },
+            select: { active: true },
+          });
+          if (!user?.active) return false;
+        },
       },
-    }),
-    // ...or by SMS to her phone number.
+    },
+  },
+
+  plugins: [
+    // Lets mothers sign in with a phone number + password. Mothers are registered by
+    // their clinic, so there is no signUpOnVerification (no public sign-up).
+    // The OTP settings are only used for verifying a phone number later.
     phoneNumber({
+      otpLength: 6,
+      expiresIn: OTP_TTL_SECONDS,
+      allowedAttempts: OTP_MAX_ATTEMPTS,
+      phoneNumberValidator: (phone) => normalizeNgPhone(phone) === phone,
       async sendOTP({ phoneNumber: to, code }) {
         // TODO: localise the SMS text per Mother.language.
-        await sendSms(to, `Your Aboyun code is ${code}`);
-      },
-      signUpOnVerification: {
-        // Better Auth requires an email on every user; phone-only mothers get a placeholder.
-        getTempEmail: (phone) => `${phone.replace(/\D/g, "")}@phone.aboyun.invalid`,
-        getTempName: (phone) => phone,
+        await sendSms(to, `Your Aboyun code is ${code}. It expires in 5 minutes.`);
       },
     }),
     nextCookies(), // keep last

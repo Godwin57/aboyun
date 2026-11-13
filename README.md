@@ -15,11 +15,11 @@ An offline-first, installable PWA that helps pregnant and nursing mothers in rem
 
 ## Roles
 
-| Role           | Signs in with                  | Area      | Sees                                 |
-| -------------- | ------------------------------ | --------- | ------------------------------------ |
-| `MOTHER`       | email or phone + one-time code | `/mother` | Only her own record                  |
-| `CLINIC`       | email + password               | `/clinic` | Mothers registered to their facility |
-| `SYSTEM_ADMIN` | email + password               | `/admin`  | Everything                           |
+| Role           | Signs in with             | Area      | Sees                                 |
+| -------------- | ------------------------- | --------- | ------------------------------------ |
+| `MOTHER`       | phone or email + password | `/mother` | Only her own record                  |
+| `CLINIC`       | email + password          | `/clinic` | Mothers registered to their facility |
+| `SYSTEM_ADMIN` | email + password          | `/admin`  | Everything                           |
 
 Family members have no login. They are contacts (name, phone, email) on the mother's record.
 
@@ -43,7 +43,7 @@ Open http://localhost:3000.
 
 ### Environment
 
-See `.env.example`. At minimum set `DATABASE_URL`, `BETTER_AUTH_SECRET` (`npx auth@latest secret`) and `BETTER_AUTH_URL`. On Neon or Supabase, put the non-pooled connection string in `DIRECT_URL` for migrations. Without `RESEND_API_KEY` / `AT_API_KEY`, one-time codes are only logged to the server console.
+See `.env.example`. At minimum set `DATABASE_URL`, `BETTER_AUTH_SECRET` (`npx auth@latest secret`) and `BETTER_AUTH_URL`. With Neon, `neon login` then `neon deploy` writes `DATABASE_URL` (pooled) and `DATABASE_URL_UNPOOLED` (direct, used for migrations) into `.env`. For local work use a dev branch (`neon checkout dev --create`) so seed data never lands in production. Supabase users can set `DIRECT_URL` instead. Without `RESEND_API_KEY` / `AT_API_KEY`, invite links (emailed or sent by SMS) are only printed in the server console.
 
 ### Seeded dev accounts
 
@@ -51,6 +51,7 @@ See `.env.example`. At minimum set `DATABASE_URL`, `BETTER_AUTH_SECRET` (`npx au
 | -------------------- | -------------- | -------------------------------------------------- |
 | `admin@aboyun.test`  | `SYSTEM_ADMIN` | `SEED_PASSWORD` env var, else see `prisma/seed.ts` |
 | `clinic@aboyun.test` | `CLINIC`       | same                                               |
+| `mother@aboyun.test` | `MOTHER`       | same (also signs in with phone `+2348000000100`)   |
 
 The demo mother has phone `+2348000000100`. These are dev-only credentials; never seed them into production.
 
@@ -101,3 +102,11 @@ proxy.ts                    route guard (Next.js 16 name for middleware)
 - The service worker is disabled in `npm run dev`. Test the PWA with `npm run build && npm run start`.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.
+
+## Languages
+
+The app supports English, Pidgin, Yorùbá, Igbo and Hausa (`next-intl`). The language is stored in a cookie (no `/en/` in URLs); a signed-in mother's choice is saved on her profile. Every user-facing string lives in `messages/<code>.json`, so new screens must use translations, not hard-coded text. After editing messages run `npm run i18n:check` to confirm all languages have the same keys. The non-English text is a draft and needs review by native speakers.
+
+## How people get in
+
+Nobody signs up publicly. The Aboyun team creates a clinic in `/admin`, and the clinic's contact gets an emailed link to set a password. Clinics register mothers the same way (a set-password link by email, or by SMS for phone-only mothers). Basic-phone users use USSD/SMS with no password.

@@ -1,0 +1,54 @@
+{
+  "Common": {
+    "language": "Asụsụ",
+    "signOut": "Pụọ"
+  },
+  "Auth": {
+    "shell": {
+      "tagline": "Nchekwa maka nne ọ bụla.",
+      "privacy": "Ihe gbasara ahụike gị bụ nzuzo."
+    },
+    "login": {
+      "title": "Nnọọ ọzọ",
+      "subtitle": "Banye ka ị gaa n'ihu.",
+      "identifier": "Ọnụ ọgụgụ ekwentị ma ọ bụ imeil",
+      "identifierPlaceholder": "0803 123 4567",
+      "password": "Paswọọdụ",
+      "submit": "Banye",
+      "submitting": "Na-abanye…",
+      "wrong": "Ọnụ ọgụgụ ekwentị, imeil ma ọ bụ paswọọdụ ezighi ezi.",
+      "help": "Ụlọ ọgwụ gị ga-edebanye aha gị ma zite gị imeil iji tọọ paswọọdụ gị."
+    },
+    "invite": {
+      "expiredTitle": "Njikọ a agwụla",
+      "expiredBody": "Njikọ oku na-arụ ọrụ otu ugboro ma na-adịru ụbọchị 7. Rịọ ndị otu Aboyun ka ha zitere gị nke ọhụrụ, ma ọ bụ banye ma ọ bụrụ na ị tọọla paswọọdụ gị.",
+      "goToSignIn": "Gaa na nbanye",
+      "welcome": "Nnọọ, {name}",
+      "choose": "Họrọ paswọọdụ maka {email}.",
+      "newPassword": "Paswọọdụ ọhụrụ",
+      "confirm": "Kwenye paswọọdụ",
+      "hint": "Opekata mpe mkpụrụedemede 8.",
+      "submit": "Tọọ paswọọdụ ma gaa n'ihu",
+      "submitting": "Na-edobe…",
+      "invalid": "Njikọ a adịghị mma ma ọ bụ ọ gwụla. Rịọ ndị otu Aboyun maka nke ọhụrụ.",
+      "failed": "Anyị enweghị ike ịtọ paswọọdụ gị. Biko nwaa ọzọ."
+    }
+  },
+  "Errors": {
+    "identifierRequired": "Tinye ọnụ ọgụgụ ekwentị ma ọ bụ imeil gị",
+    "identifierInvalid": "Tinye ọnụ ọgụgụ ekwentị Naịjirịa ma ọ bụ imeil ziri ezi",
+    "passwordRequired": "Tinye paswọọdụ gị",
+    "passwordMin": "Jiri opekata mpe mkpụrụedemede 8",
+    "passwordMax": "Paswọọdụ ogologo karịa",
+    "passwordMismatch": "Paswọọdụ abụọ adịghị otu"
+  },
+  "Email": {
+    "inviteSubject": "Akpọrọ gị n'Aboyun",
+    "inviteIntro": "Edebanyela aha gị na Aboyun. Jiri njikọ dị n'okpuru tọọ paswọọdụ gị ma banye.",
+    "resetSubject": "Tọgharịa paswọọdụ Aboyun gị",
+    "resetIntro": "Jiri njikọ dị n'okpuru họrọ paswọọdụ ọhụrụ.",
+    "button": "Tọọ paswọọdụ m",
+    "footer": "Njikọ a na-arụ ọrụ otu ugboro ma ọ ga-agwụ ná ụbọchị 7.",
+    "sms": "Aboyun: tọọ paswọọdụ gị ebe a: {url}"
+  }
+}

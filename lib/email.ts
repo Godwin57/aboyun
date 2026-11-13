@@ -7,12 +7,20 @@ function getClient() {
   return client;
 }
 
-/** Send a transactional email through Resend. */
-export async function sendEmail(opts: { to: string; subject: string; html: string }) {
+/**
+ * Send a transactional email through Resend.
+ * Without RESEND_API_KEY (local dev) the `text` is printed to the server console
+ * instead, so one-time codes and invite links can be copied from the terminal.
+ */
+export async function sendEmail(opts: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+}) {
   if (!process.env.RESEND_API_KEY) {
-    // TODO: remove this dev fallback once RESEND_API_KEY is configured everywhere.
-    console.warn(
-      `[email] RESEND_API_KEY not set. Would send "${opts.subject}" to ${opts.to}`,
+    console.log(
+      `\n[email:dev] To: ${opts.to}\n[email:dev] ${opts.subject}\n${opts.text}\n`,
     );
     return;
   }

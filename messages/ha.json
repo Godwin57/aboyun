@@ -1,0 +1,54 @@
+{
+  "Common": {
+    "language": "Harshe",
+    "signOut": "Fita"
+  },
+  "Auth": {
+    "shell": {
+      "tagline": "Lafiya da kariya ga kowace uwa.",
+      "privacy": "Bayanan lafiyarku sirri ne."
+    },
+    "login": {
+      "title": "Barka da dawowa",
+      "subtitle": "Shiga domin ci gaba.",
+      "identifier": "Lambar waya ko imel",
+      "identifierPlaceholder": "0803 123 4567",
+      "password": "Kalmar sirri",
+      "submit": "Shiga",
+      "submitting": "Ana shiga…",
+      "wrong": "Lambar waya, imel ko kalmar sirri ba daidai ba ne.",
+      "help": "Asibitinku zai yi muku rajista, ya aiko muku da imel don ku saita kalmar sirri."
+    },
+    "invite": {
+      "expiredTitle": "Wannan hanyar haɗin ta ƙare",
+      "expiredBody": "Hanyar haɗin gayyata tana aiki sau ɗaya kuma tana ɗaukar kwanaki 7. Ku roƙi ƙungiyar Aboyun ta aiko muku wata sabuwa, ko ku shiga idan kun riga kun saita kalmar sirrinku.",
+      "goToSignIn": "Je zuwa shiga",
+      "welcome": "Barka da zuwa, {name}",
+      "choose": "Zaɓi kalmar sirri don {email}.",
+      "newPassword": "Sabuwar kalmar sirri",
+      "confirm": "Tabbatar da kalmar sirri",
+      "hint": "Aƙalla haruffa 8.",
+      "submit": "Saita kalmar sirri, sannan ku ci gaba",
+      "submitting": "Ana ajiyewa…",
+      "invalid": "Wannan hanyar haɗin ba ta aiki ko ta ƙare. Ku roƙi ƙungiyar Aboyun wata sabuwa.",
+      "failed": "Ba mu iya saita kalmar sirrinku ba. Da fatan a sake gwadawa."
+    }
+  },
+  "Errors": {
+    "identifierRequired": "Shigar da lambar waya ko imel",
+    "identifierInvalid": "Shigar da ingantacciyar lambar wayar Najeriya ko imel",
+    "passwordRequired": "Shigar da kalmar sirri",
+    "passwordMin": "Yi amfani da haruffa 8 ko fiye",
+    "passwordMax": "Kalmar sirri ta yi tsayi da yawa",
+    "passwordMismatch": "Kalmomin sirri ba su yi daidai ba"
+  },
+  "Email": {
+    "inviteSubject": "An gayyace ku zuwa Aboyun",
+    "inviteIntro": "An yi muku rajista a Aboyun. Yi amfani da hanyar haɗin da ke ƙasa don saita kalmar sirrinku ku shiga.",
+    "resetSubject": "Sake saita kalmar sirrinku ta Aboyun",
+    "resetIntro": "Yi amfani da hanyar haɗin da ke ƙasa don zaɓar sabuwar kalmar sirri.",
+    "button": "Saita kalmar sirrina",
+    "footer": "Wannan hanyar haɗin tana aiki sau ɗaya kuma za ta ƙare bayan kwanaki 7.",
+    "sms": "Aboyun: saita kalmar sirrinku a nan: {url}"
+  }
+}
