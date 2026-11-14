@@ -9,7 +9,7 @@ export default function NewClinicPage() {
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <Link
-        href="/admin"
+        href="/admin/clinics"
         className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm"
       >
         <ArrowLeft className="size-4" />
