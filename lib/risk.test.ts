@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { assessVisit, highestLevel, overallRisk, type DangerSign } from "./risk";
+import {
+  assessVisit,
+  highestLevel,
+  isReferCode,
+  overallRisk,
+  type DangerSign,
+} from "./risk";
 
 const codes = (r: ReturnType<typeof assessVisit>) => r.reasons.map((x) => x.code);
 
@@ -136,5 +142,36 @@ describe("overall risk from open flags", () => {
   it("is low with no open flags", () => {
     assert.equal(overallRisk([]), "LOW");
     assert.equal(highestLevel([]), "LOW");
+  });
+});
+
+describe("isReferCode", () => {
+  it("is true for the refer-now rules", () => {
+    for (const code of ["BP_SEVERE", "HB_SEVERE", "SIGN_FITS", "SIGN_BLEEDING"]) {
+      assert.equal(isReferCode(code), true, code);
+    }
+  });
+
+  it("is false for the rest", () => {
+    for (const code of ["BP_HIGH", "HB_LOW", "", null, undefined]) {
+      assert.equal(isReferCode(code), false, String(code));
+    }
+  });
+
+  it("agrees with the refer flag from assessVisit", () => {
+    const cases = [
+      { bpSys: 168, bpDia: 112 },
+      { bpSys: 150, bpDia: 95 },
+      { hbGdl: 6.5 },
+      { hbGdl: 10 },
+      { signs: { vision: true } },
+    ];
+    for (const readings of cases) {
+      const r = assessVisit(readings);
+      assert.equal(
+        r.refer,
+        r.reasons.some((x) => isReferCode(x.code)),
+      );
+    }
   });
 });

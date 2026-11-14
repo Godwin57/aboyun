@@ -147,3 +147,8 @@ export function overallRisk(
 ): RiskLevel {
   return highestLevel(flags.filter((f) => f.resolvedAt === null).map((f) => f.level));
 }
+
+/** Flag codes that mean "refer now" (severe BP, severe anaemia, any danger sign). */
+export function isReferCode(code: string | null | undefined): boolean {
+  return code === "BP_SEVERE" || code === "HB_SEVERE" || !!code?.startsWith("SIGN_");
+}
