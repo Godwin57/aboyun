@@ -75,7 +75,7 @@ export function NewClinicForm() {
     }
     if (result.inviteSent) toast.success(`Invite sent to ${result.email}`);
     else toast.warning(`${result.clinicName} was created, but the invite email failed.`);
-    router.push("/admin");
+    router.push("/admin/clinics");
     router.refresh();
   }
 

@@ -14,6 +14,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Wordmark />
             <nav className="hidden gap-4 text-sm font-medium sm:flex">
               <Link href="/admin" className="text-muted-foreground hover:text-foreground">
+                Overview
+              </Link>
+              <Link href="/admin/clinics" className="text-muted-foreground hover:text-foreground">
                 Clinics
               </Link>
               {/* TODO: users, audit log */}

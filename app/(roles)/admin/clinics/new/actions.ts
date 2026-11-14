@@ -29,7 +29,7 @@ export async function createClinicAction(
 
   try {
     const { facility, user, inviteSent } = await createClinic(session, parsed.data);
-    revalidatePath("/admin");
+    revalidatePath("/admin/clinics");
     return { ok: true, clinicName: facility.name, email: user.email, inviteSent };
   } catch (error) {
     if (error instanceof ClinicError) return { ok: false, error: error.message };
