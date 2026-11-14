@@ -16,7 +16,14 @@ const ITEMS = [
   },
 ] as const;
 
-export function ClinicNav({ openEmergencies }: { openEmergencies: number }) {
+export function ClinicNav({
+  openEmergencies,
+  onNavigate,
+}: {
+  openEmergencies: number;
+  /** Called when a link is chosen, so the mobile menu can close. */
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
@@ -27,6 +34,7 @@ export function ClinicNav({ openEmergencies }: { openEmergencies: number }) {
           <Link
             key={href}
             href={href}
+            onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
               "flex min-h-11 items-center gap-3 rounded-xl px-3 font-medium transition-colors",
