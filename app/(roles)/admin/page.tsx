@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { db } from "@/lib/db";
+import { ResendInviteButton } from "./resend-invite-button";
 
 // TODO: users and audit log sections.
 export default async function AdminHome() {
@@ -80,7 +81,10 @@ export default async function AdminHome() {
                     {joined ? (
                       <Badge variant="secondary">Active</Badge>
                     ) : (
-                      <Badge variant="outline">Invite pending</Badge>
+                      <div className="flex items-center gap-3">
+                        <Badge variant="outline">Invite pending</Badge>
+                        {contact && <ResendInviteButton userId={contact.id} />}
+                      </div>
                     )}
                   </TableCell>
                 </TableRow>
