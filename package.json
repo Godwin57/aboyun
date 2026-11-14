@@ -14,7 +14,8 @@
     "db:studio": "prisma studio",
     "db:seed": "prisma db seed",
     "postinstall": "prisma generate",
-    "i18n:check": "node scripts/check-messages.mjs"
+    "i18n:check": "node scripts/check-messages.mjs",
+    "test": "node --import tsx --test lib/schedule.test.ts lib/risk.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

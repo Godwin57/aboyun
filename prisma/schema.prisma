@@ -191,6 +191,8 @@ model Facility {
   mothers             Mother[]
   emergencies         Emergency[] @relation("EmergencyFacility")
   referredEmergencies Emergency[] @relation("EmergencyReferral")
+  referralsFrom       Referral[]  @relation("ReferralFrom")
+  referralsTo         Referral[]  @relation("ReferralTo")
 
   @@index([areaId])
 }
@@ -198,19 +200,22 @@ model Facility {
 // ───────────────────── Patients ─────────────────────
 
 model Mother {
-  id         String       @id @default(uuid())
-  userId     String?      @unique
-  name       String
-  phone      String?
-  email      String?
-  language   String       @default("en")
-  lmp        DateTime
-  edd        DateTime
-  facilityId String
-  riskLevel  RiskLevel    @default(LOW)
-  status     MotherStatus @default(PREGNANT)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  id                  String       @id @default(uuid())
+  userId              String?      @unique
+  name                String
+  phone               String?
+  email               String?
+  language            String       @default("en")
+  lmp                 DateTime
+  edd                 DateTime
+  facilityId          String
+  riskLevel           RiskLevel    @default(LOW)
+  status              MotherStatus @default(PREGNANT)
+  /// When she agreed to have her health information recorded, and who recorded it.
+  consentAt           DateTime?
+  consentRecordedById String?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
 
   user           User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   facility       Facility        @relation(fields: [facilityId], references: [id])
@@ -221,8 +226,10 @@ model Mother {
   emergencies    Emergency[]
   reminders      Reminder[]
   babies         Baby[]
+  referrals      Referral[]
 
   @@index([facilityId])
+  @@index([facilityId, riskLevel])
   @@index([phone])
   @@index([riskLevel])
   @@index([status])
@@ -244,23 +251,27 @@ model FamilyContact {
 }
 
 model Visit {
-  id           String    @id @default(uuid())
-  motherId     String
-  kind         VisitKind
-  dueDate      DateTime
-  attendedAt   DateTime?
-  bpSys        Int?
-  bpDia        Int?
-  weightKg     Float?
-  hbGdl        Float?
-  signs        Json      @default("{}")
-  recordedById String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id            String    @id @default(uuid())
+  motherId      String
+  kind          VisitKind
+  dueDate       DateTime
+  attendedAt    DateTime?
+  bpSys         Int?
+  bpDia         Int?
+  weightKg      Float?
+  hbGdl         Float?
+  signs         Json      @default("{}")
+  /// Which scheduled contact this is (ANC: 1 to 8) and the gestation week it is planned for.
+  contactNo     Int?
+  gestationWeek Int?
+  recordedById  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   mother     Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
   recordedBy User?  @relation(fields: [recordedById], references: [id], onDelete: SetNull)
 
+  @@unique([motherId, kind, contactNo])
   @@index([motherId])
   @@index([dueDate])
   @@index([recordedById])
@@ -282,20 +293,50 @@ model SymptomReport {
 }
 
 model RiskFlag {
-  id         String    @id @default(uuid())
-  motherId   String
-  reason     String
-  level      RiskLevel
+  id             String    @id @default(uuid())
+  motherId       String
+  reason         String
+  level          RiskLevel
   /// Id of the Visit or SymptomReport that raised the flag.
-  sourceId   String?
-  resolvedAt DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  sourceId       String?
+  /// Machine-readable rule code, e.g. BP_SEVERE, HB_LOW, SIGN_FITS.
+  code           String?
+  resolvedAt     DateTime?
+  resolvedById   String?
+  resolutionNote String?
+  /// Set when the flag led to a referral.
+  referralId     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  mother Mother @relation(fields: [motherId], references: [id], onDelete: Cascade)
+  mother   Mother    @relation(fields: [motherId], references: [id], onDelete: Cascade)
+  referral Referral? @relation(fields: [referralId], references: [id], onDelete: SetNull)
 
   @@index([motherId])
   @@index([level])
+  @@index([referralId])
+}
+
+/// A mother sent from one facility to another (for example for a severe blood pressure reading).
+model Referral {
+  id             String   @id @default(uuid())
+  motherId       String
+  fromFacilityId String
+  toFacilityId   String
+  reason         String
+  visitId        String?
+  createdById    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  mother       Mother     @relation(fields: [motherId], references: [id], onDelete: Cascade)
+  fromFacility Facility   @relation("ReferralFrom", fields: [fromFacilityId], references: [id])
+  toFacility   Facility   @relation("ReferralTo", fields: [toFacilityId], references: [id])
+  flags        RiskFlag[]
+
+  @@index([motherId])
+  @@index([fromFacilityId])
+  @@index([toFacilityId])
 }
 
 model Emergency {

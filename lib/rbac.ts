@@ -102,6 +102,14 @@ export function requirePermission(
 const NO_MATCH = "00000000-0000-0000-0000-000000000000";
 
 /**
+ * Prisma `where` for tables that belong to a mother (visits, flags, referrals,
+ * reminders...): restrict them to mothers the session may see.
+ */
+export function motherChildScope(session: AppSession) {
+  return { mother: scopeWhere(session) };
+}
+
+/**
  * Prisma `where` for Mother (patient) data the session may see:
  * MOTHER -> her own record, CLINIC -> mothers of their facility, SYSTEM_ADMIN -> all.
  */
