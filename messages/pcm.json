@@ -50,5 +50,139 @@
     "button": "Set my password",
     "footer": "This link dey work one time and e go expire after 7 days.",
     "sms": "Aboyun: set your password here: {url}"
+  },
+  "Mother": {
+    "header": {
+      "sync": "Sync",
+      "syncing": "E dey sync…",
+      "online": "Network dey",
+      "offline": "No network",
+      "waiting": "{count, plural, one {# thing dey wait make e go} other {# things dey wait make dem go}}",
+      "allSent": "Everything don go",
+      "lastSync": "Last time e sync: {time}",
+      "neverSynced": "E never sync yet"
+    },
+    "badge": {
+      "device": "Dem save am for this phone",
+      "synced": "E don sync"
+    },
+    "home": {
+      "greeting": "How you dey, {name}",
+      "weeks": "{weeks, plural, one {# week belle} other {# weeks belle}}",
+      "postnatal": "After you born",
+      "loading": "E dey load…",
+      "needsConnection": "Use network one time make we load your details. After that, the app go work even if network no dey.",
+      "retry": "Try again",
+      "nextVisit": "Your next clinic visit",
+      "noVisit": "Dem never book any visit for you. Your clinic go tell you.",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "inDays": "After {days} days",
+      "passed": "The visit date don pass. Abeg go your clinic.",
+      "at": "For {facility}",
+      "emergency": "EMERGENCY",
+      "emergencyHint": "Press am if you or your pikin need help now now",
+      "checkTitle": "How body dey?",
+      "checkHint": "Answer small yes or no questions",
+      "clinic": "Your clinic"
+    },
+    "risk": {
+      "LOW": {
+        "title": "You dey do well",
+        "body": "Continue to go your clinic visits and take your tablet."
+      },
+      "MEDIUM": {
+        "title": "Your clinic dey watch you well well",
+        "body": "Abeg no miss your next visit."
+      },
+      "HIGH": {
+        "title": "Your clinic wan see you soon",
+        "body": "Abeg call your clinic, or go your next visit."
+      }
+    },
+    "tablet": {
+      "title": "Your tablet for today",
+      "prompt": "You don take your tablet today?",
+      "button": "I don take my tablet today",
+      "done": "Well done! You don take your tablet today."
+    },
+    "check": {
+      "title": "Check your body",
+      "intro": "Think how your body dey now. Answer yes or no.",
+      "yes": "Yes",
+      "no": "No",
+      "submit": "Show me my result",
+      "answerAll": "Abeg answer all the questions.",
+      "back": "Go back",
+      "again": "Check again",
+      "recent": "Last checks",
+      "none": "You never check yet.",
+      "signs": {
+        "bleeding": "Blood dey comot from your private part?",
+        "headache": "Your head dey pain you bad bad?",
+        "vision": "Your eye dey blur?",
+        "fits": "You don get fit or shake wey you no fit control?",
+        "movement": "Your belle pikin no dey move like before?",
+        "fever": "Your body dey hot or you get fever?",
+        "swelling": "Your face or your hand don swell?",
+        "pain": "Your belle dey pain you bad bad?"
+      },
+      "result": {
+        "OK": {
+          "title": "No danger sign",
+          "body": "You no get any danger sign now. Continue to go your visits. Check again if your body change."
+        },
+        "CLINIC_SOON": {
+          "title": "Abeg go your clinic soon",
+          "body": "One of your answer need nurse to look am. Abeg go your clinic today or tomorrow."
+        },
+        "GO_NOW": {
+          "title": "Abeg go clinic now now",
+          "body": "Go your clinic or the nearest health centre now. Ask person make una go together. If you no fit go, press the emergency button."
+        }
+      },
+      "result_label": {
+        "OK": "No danger sign",
+        "CLINIC_SOON": "Go clinic soon",
+        "GO_NOW": "Go clinic now"
+      }
+    },
+    "emergency": {
+      "title": "Wetin happen?",
+      "intro": "Choose the one wey close pass. Dem go tell your clinic and your family.",
+      "kind": {
+        "BLEEDING": "Plenty blood dey comot",
+        "LABOUR": "Labour don start",
+        "FITS": "Fit",
+        "BABY": "Wahala with my pikin",
+        "OTHER": "Another thing"
+      },
+      "cancel": "Go back",
+      "sentTitle": "Dem don tell your clinic",
+      "sentBody": "Stay where you dey if e safe. Dem dey arrange help.",
+      "queuedTitle": "E need network",
+      "queuedBody": "Dem save am for this phone. E go go as network show. Call or text your clinic now.",
+      "call": "Call {facility}",
+      "sms": "Send SMS to {facility}",
+      "smsBody": "EMERGENCY. Na me {name}. {kind}. Abeg help me.",
+      "yourAlert": "Your last alert",
+      "done": "Back to home"
+    },
+    "install": {
+      "button": "Install the app",
+      "hint": "Put Aboyun for your phone make e open like other app, even if data no dey.",
+      "ios": "To install: press the Share button, then “Add to Home Screen”."
+    },
+    "session": {
+      "expiredTitle": "Abeg sign in again",
+      "expiredBody": "You no use network for more than 7 days. Sign in again make your records safe.",
+      "signIn": "Sign in"
+    },
+    "offline": {
+      "title": "No network",
+      "body": "This page no dey your phone yet. Use network and try again.",
+      "retry": "Try again",
+      "home": "Open my home page"
+    }
   }
 }

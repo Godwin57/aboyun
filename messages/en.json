@@ -50,5 +50,139 @@
     "button": "Set my password",
     "footer": "This link works once and expires in 7 days.",
     "sms": "Aboyun: set your password here: {url}"
+  },
+  "Mother": {
+    "header": {
+      "sync": "Sync",
+      "syncing": "Syncing…",
+      "online": "Online",
+      "offline": "Offline",
+      "waiting": "{count, plural, one {# item waiting to send} other {# items waiting to send}}",
+      "allSent": "Everything is sent",
+      "lastSync": "Last synced: {time}",
+      "neverSynced": "Not synced yet"
+    },
+    "badge": {
+      "device": "Saved on this device",
+      "synced": "Synced"
+    },
+    "home": {
+      "greeting": "Hello, {name}",
+      "weeks": "{weeks, plural, one {# week pregnant} other {# weeks pregnant}}",
+      "postnatal": "After birth",
+      "loading": "Loading…",
+      "needsConnection": "Connect to the internet once so we can load your details. After that the app works without a connection.",
+      "retry": "Try again",
+      "nextVisit": "Your next visit",
+      "noVisit": "No visit is booked yet. Your clinic will tell you.",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "inDays": "In {days} days",
+      "passed": "This visit date has passed. Please go to your clinic.",
+      "at": "At {facility}",
+      "emergency": "EMERGENCY",
+      "emergencyHint": "Press if you or your baby need help now",
+      "checkTitle": "How do you feel?",
+      "checkHint": "Answer a few yes or no questions",
+      "clinic": "Your clinic"
+    },
+    "risk": {
+      "LOW": {
+        "title": "You are doing well",
+        "body": "Keep going to your visits and taking your tablet."
+      },
+      "MEDIUM": {
+        "title": "Your clinic is keeping a close watch",
+        "body": "Please do not miss your next visit."
+      },
+      "HIGH": {
+        "title": "Your clinic wants to see you soon",
+        "body": "Please call your clinic, or go to your next visit."
+      }
+    },
+    "tablet": {
+      "title": "Your tablet today",
+      "prompt": "Did you take your tablet today?",
+      "button": "I took my tablet today",
+      "done": "Well done! You took your tablet today."
+    },
+    "check": {
+      "title": "Symptom check",
+      "intro": "Think about how you feel right now. Answer yes or no.",
+      "yes": "Yes",
+      "no": "No",
+      "submit": "See my result",
+      "answerAll": "Please answer every question.",
+      "back": "Back",
+      "again": "Check again",
+      "recent": "Recent checks",
+      "none": "No checks yet.",
+      "signs": {
+        "bleeding": "Are you bleeding from the vagina?",
+        "headache": "Do you have a very bad headache?",
+        "vision": "Is your vision blurred?",
+        "fits": "Have you had fits or shaking that you could not control?",
+        "movement": "Is your baby moving less than usual?",
+        "fever": "Do you have a fever or feel very hot?",
+        "swelling": "Is your face or are your hands swollen?",
+        "pain": "Do you have very bad pain in your belly?"
+      },
+      "result": {
+        "OK": {
+          "title": "No danger signs",
+          "body": "You do not have any danger signs now. Keep going to your visits. Check again if you feel different."
+        },
+        "CLINIC_SOON": {
+          "title": "Please see your clinic soon",
+          "body": "One of your answers needs a nurse to look at it. Please go to your clinic today or tomorrow."
+        },
+        "GO_NOW": {
+          "title": "Please go to the clinic now",
+          "body": "Go to your clinic or the nearest health centre now. Ask someone to go with you. If you cannot go, press the emergency button."
+        }
+      },
+      "result_label": {
+        "OK": "No danger signs",
+        "CLINIC_SOON": "See clinic soon",
+        "GO_NOW": "Go to clinic now"
+      }
+    },
+    "emergency": {
+      "title": "What is the emergency?",
+      "intro": "Choose the one that is closest. Your clinic and your family contacts will be told.",
+      "kind": {
+        "BLEEDING": "Heavy bleeding",
+        "LABOUR": "Labour has started",
+        "FITS": "Fits",
+        "BABY": "Problem with my baby",
+        "OTHER": "Something else"
+      },
+      "cancel": "Go back",
+      "sentTitle": "Your clinic has been told",
+      "sentBody": "Stay where you are if it is safe. Help is being arranged.",
+      "queuedTitle": "Needs connection",
+      "queuedBody": "Saved on this device. It will be sent as soon as you are online. Call or text your clinic now.",
+      "call": "Call {facility}",
+      "sms": "Send an SMS to {facility}",
+      "smsBody": "EMERGENCY. I am {name}. {kind}. Please help.",
+      "yourAlert": "Your last alert",
+      "done": "Back to home"
+    },
+    "install": {
+      "button": "Install the app",
+      "hint": "Put Aboyun on your phone so it opens like any app, even without data.",
+      "ios": "To install: tap the Share button, then “Add to Home Screen”."
+    },
+    "session": {
+      "expiredTitle": "Please sign in again",
+      "expiredBody": "You have not been online for more than 7 days. Sign in again to keep your records safe.",
+      "signIn": "Sign in"
+    },
+    "offline": {
+      "title": "You are offline",
+      "body": "This page is not saved on your phone yet. Connect to the internet and try again.",
+      "retry": "Try again",
+      "home": "Open my home page"
+    }
   }
 }

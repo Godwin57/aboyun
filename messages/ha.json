@@ -50,5 +50,139 @@
     "button": "Saita kalmar sirrina",
     "footer": "Wannan hanyar haɗin tana aiki sau ɗaya kuma za ta ƙare bayan kwanaki 7.",
     "sms": "Aboyun: saita kalmar sirrinku a nan: {url}"
+  },
+  "Mother": {
+    "header": {
+      "sync": "Daidaita",
+      "syncing": "Ana daidaitawa…",
+      "online": "Akwai intanet",
+      "offline": "Babu intanet",
+      "waiting": "{count, plural, one {# yana jira a aika} other {# suna jira a aika}}",
+      "allSent": "An aika komai",
+      "lastSync": "Daidaitawa ta ƙarshe: {time}",
+      "neverSynced": "Ba a daidaita ba tukuna"
+    },
+    "badge": {
+      "device": "An adana a wannan wayar",
+      "synced": "An daidaita"
+    },
+    "home": {
+      "greeting": "Sannu, {name}",
+      "weeks": "{weeks, plural, one {Cikin mako #} other {Cikin makonni #}}",
+      "postnatal": "Bayan haihuwa",
+      "loading": "Ana lodawa…",
+      "needsConnection": "Yi amfani da intanet sau ɗaya don mu ɗora bayananki. Bayan haka manhajar za ta yi aiki ba tare da intanet ba.",
+      "retry": "Sake gwadawa",
+      "nextVisit": "Ziyararki ta gaba",
+      "noVisit": "Ba a ba ki ranar ziyara ba tukuna. Asibitinki zai gaya miki.",
+      "today": "Yau",
+      "tomorrow": "Gobe",
+      "inDays": "Nan da kwanaki {days}",
+      "passed": "Ranar ziyarar nan ta wuce. Don Allah ki je asibitinki.",
+      "at": "A {facility}",
+      "emergency": "GAGGAWA",
+      "emergencyHint": "Danna idan ke ko jaririnki kuna buƙatar taimako yanzu",
+      "checkTitle": "Yaya jikinki yake?",
+      "checkHint": "Amsa 'yan tambayoyi: eh ko a'a",
+      "clinic": "Asibitinki"
+    },
+    "risk": {
+      "LOW": {
+        "title": "Kina cikin ƙoshin lafiya",
+        "body": "Ci gaba da zuwa ziyararki kuma ki riƙa shan maganinki."
+      },
+      "MEDIUM": {
+        "title": "Asibitinki yana kula da ke sosai",
+        "body": "Don Allah kada ki rasa ziyararki ta gaba."
+      },
+      "HIGH": {
+        "title": "Asibitinki yana son ganinki nan ba da daɗewa ba",
+        "body": "Don Allah ki kira asibitinki, ko ki je ziyararki ta gaba."
+      }
+    },
+    "tablet": {
+      "title": "Maganinki na yau",
+      "prompt": "Kin sha maganinki yau?",
+      "button": "Na sha maganina yau",
+      "done": "Madalla! Kin sha maganinki yau."
+    },
+    "check": {
+      "title": "Duba alamun rashin lafiya",
+      "intro": "Ki yi tunani yadda jikinki yake yanzu. Ki amsa eh ko a'a.",
+      "yes": "Eh",
+      "no": "A'a",
+      "submit": "Nuna min sakamako",
+      "answerAll": "Don Allah ki amsa dukkan tambayoyin.",
+      "back": "Koma baya",
+      "again": "Sake dubawa",
+      "recent": "Binciken kwanan nan",
+      "none": "Ba ki yi bincike ba tukuna.",
+      "signs": {
+        "bleeding": "Jini yana fita daga al'aurarki?",
+        "headache": "Kina da matsanancin ciwon kai?",
+        "vision": "Idanunki suna gani a lulluɓe?",
+        "fits": "Kin yi suma ko kamawa da ba za ki iya hanawa ba?",
+        "movement": "Jaririn cikinki yana motsi ƙasa da yadda ya saba?",
+        "fever": "Kina da zazzaɓi ko jikinki yana zafi sosai?",
+        "swelling": "Fuskarki ko hannayenki sun kumbura?",
+        "pain": "Kina da matsanancin ciwon ciki?"
+      },
+      "result": {
+        "OK": {
+          "title": "Babu alamar haɗari",
+          "body": "Ba ki da alamar haɗari yanzu. Ci gaba da zuwa ziyararki. Ki sake dubawa idan jikinki ya canza."
+        },
+        "CLINIC_SOON": {
+          "title": "Don Allah ki je asibiti nan ba da daɗewa ba",
+          "body": "Ɗaya daga cikin amsoshinki yana buƙatar ma'aikaciyar jinya ta duba. Don Allah ki je asibitinki yau ko gobe."
+        },
+        "GO_NOW": {
+          "title": "Don Allah ki je asibiti yanzu",
+          "body": "Ki je asibitinki ko cibiyar lafiya mafi kusa yanzu. Ki nemi wani ya raka ki. Idan ba za ki iya zuwa ba, ki danna maɓallin gaggawa."
+        }
+      },
+      "result_label": {
+        "OK": "Babu alamar haɗari",
+        "CLINIC_SOON": "Ki je asibiti nan ba da daɗewa ba",
+        "GO_NOW": "Ki je asibiti yanzu"
+      }
+    },
+    "emergency": {
+      "title": "Me ya faru?",
+      "intro": "Zaɓi wanda ya fi kusa. Za a sanar da asibitinki da danginki.",
+      "kind": {
+        "BLEEDING": "Zubar jini mai yawa",
+        "LABOUR": "Naƙuda ta fara",
+        "FITS": "Kamawa",
+        "BABY": "Matsala da jaririna",
+        "OTHER": "Wani abu daban"
+      },
+      "cancel": "Koma baya",
+      "sentTitle": "An sanar da asibitinki",
+      "sentBody": "Ki tsaya inda kike idan babu haɗari. Ana shirya taimako.",
+      "queuedTitle": "Yana buƙatar intanet",
+      "queuedBody": "An adana shi a wannan wayar. Za a aika da zarar kin samu intanet. Ki kira ko ki yi wa asibitinki saƙo yanzu.",
+      "call": "Kira {facility}",
+      "sms": "Aika SMS zuwa {facility}",
+      "smsBody": "GAGGAWA. Ni ce {name}. {kind}. Don Allah ku taimake ni.",
+      "yourAlert": "Gargaɗinki na ƙarshe",
+      "done": "Koma shafin farko"
+    },
+    "install": {
+      "button": "Sanya manhajar",
+      "hint": "Sanya Aboyun a wayarki don ta buɗe kamar kowace manhaja, ko da babu data.",
+      "ios": "Don sanyawa: danna maɓallin Share, sannan “Add to Home Screen”."
+    },
+    "session": {
+      "expiredTitle": "Don Allah ki sake shiga",
+      "expiredBody": "Ba ki yi amfani da intanet ba fiye da kwanaki 7. Ki sake shiga don a tsare bayananki.",
+      "signIn": "Shiga"
+    },
+    "offline": {
+      "title": "Babu intanet",
+      "body": "Ba a adana wannan shafin a wayarki ba tukuna. Ki haɗa intanet ki sake gwadawa.",
+      "retry": "Sake gwadawa",
+      "home": "Buɗe shafina na farko"
+    }
   }
 }

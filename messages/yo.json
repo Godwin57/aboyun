@@ -50,5 +50,139 @@
     "button": "Ṣètò ọ̀rọ̀ aṣínà mi",
     "footer": "Ìjápọ̀ yìí ṣiṣẹ́ lẹ́ẹ̀kan, yóò sì parí lẹ́yìn ọjọ́ 7.",
     "sms": "Aboyun: ṣètò ọ̀rọ̀ aṣínà rẹ níbí: {url}"
+  },
+  "Mother": {
+    "header": {
+      "sync": "Ṣe àmúṣẹ́pọ̀",
+      "syncing": "Ó ń ṣe àmúṣẹ́pọ̀…",
+      "online": "Lórí ayélujára",
+      "offline": "Kò sí ayélujára",
+      "waiting": "{count, plural, other {# ń dúró láti lọ}}",
+      "allSent": "A ti fi gbogbo rẹ̀ ránṣẹ́",
+      "lastSync": "Àmúṣẹ́pọ̀ tó kẹ́yìn: {time}",
+      "neverSynced": "A kò tíì ṣe àmúṣẹ́pọ̀"
+    },
+    "badge": {
+      "device": "A ti fi pamọ́ sórí fóònù yìí",
+      "synced": "A ti ṣe àmúṣẹ́pọ̀"
+    },
+    "home": {
+      "greeting": "Báwo ni, {name}",
+      "weeks": "{weeks, plural, other {Oyún ọ̀sẹ̀ #}}",
+      "postnatal": "Lẹ́yìn ìbímọ",
+      "loading": "Ó ń gbé jáde…",
+      "needsConnection": "Lo ayélujára lẹ́ẹ̀kan kí a lè gbé àlàyé rẹ jáde. Lẹ́yìn náà, ìṣàfilọ́lẹ̀ yìí yóò ṣiṣẹ́ láìsí ayélujára.",
+      "retry": "Gbìyànjú lẹ́ẹ̀kan sí i",
+      "nextVisit": "Ìbẹ̀wò rẹ tó kàn",
+      "noVisit": "A kò tíì fún ọ ní ọjọ́ ìbẹ̀wò. Ilé ìwòsàn rẹ yóò sọ fún ọ.",
+      "today": "Òní",
+      "tomorrow": "Ọ̀la",
+      "inDays": "Ní ọjọ́ {days} sí i",
+      "passed": "Ọjọ́ ìbẹ̀wò yìí ti kọjá. Jọ̀wọ́ lọ sí ilé ìwòsàn rẹ.",
+      "at": "Ní {facility}",
+      "emergency": "PÀJÁWÌRÌ",
+      "emergencyHint": "Tẹ̀ ẹ́ bí ìwọ tàbí ọmọ rẹ bá nílò ìrànlọ́wọ́ báyìí",
+      "checkTitle": "Báwo ni ara rẹ ṣe rí?",
+      "checkHint": "Dáhùn àwọn ìbéèrè díẹ̀: bẹ́ẹ̀ ni tàbí rárá",
+      "clinic": "Ilé ìwòsàn rẹ"
+    },
+    "risk": {
+      "LOW": {
+        "title": "O ń ṣe dáadáa",
+        "body": "Tẹ̀síwájú láti máa lọ sí ìbẹ̀wò rẹ àti láti máa lo oògùn rẹ."
+      },
+      "MEDIUM": {
+        "title": "Ilé ìwòsàn rẹ ń ṣọ́ ọ dáadáa",
+        "body": "Jọ̀wọ́ má fò ìbẹ̀wò rẹ tó kàn."
+      },
+      "HIGH": {
+        "title": "Ilé ìwòsàn rẹ fẹ́ rí ọ láìpẹ́",
+        "body": "Jọ̀wọ́ pe ilé ìwòsàn rẹ, tàbí lọ sí ìbẹ̀wò rẹ tó kàn."
+      }
+    },
+    "tablet": {
+      "title": "Oògùn rẹ lónìí",
+      "prompt": "Ǹjẹ́ o ti lo oògùn rẹ lónìí?",
+      "button": "Mo ti lo oògùn mi lónìí",
+      "done": "Ó dára! O ti lo oògùn rẹ lónìí."
+    },
+    "check": {
+      "title": "Àyẹ̀wò àmì àìsàn",
+      "intro": "Ronú nípa bí ara rẹ ṣe rí báyìí. Dáhùn bẹ́ẹ̀ ni tàbí rárá.",
+      "yes": "Bẹ́ẹ̀ ni",
+      "no": "Rárá",
+      "submit": "Fi èsì mi hàn mí",
+      "answerAll": "Jọ̀wọ́ dáhùn gbogbo ìbéèrè.",
+      "back": "Padà sẹ́yìn",
+      "again": "Ṣe àyẹ̀wò lẹ́ẹ̀kan sí i",
+      "recent": "Àwọn àyẹ̀wò àìpẹ́",
+      "none": "O kò tíì ṣe àyẹ̀wò kankan.",
+      "signs": {
+        "bleeding": "Ṣé ẹ̀jẹ̀ ń jáde láti ibi ìkọ̀kọ̀ rẹ?",
+        "headache": "Ṣé orí ń fọ́ ọ gidigidi?",
+        "vision": "Ṣé ojú rẹ ń ṣú bàìbàì?",
+        "fits": "Ṣé o ti ní ìjàkadì tàbí gbígbọ̀n tí o kò lè dá dúró?",
+        "movement": "Ṣé ọmọ inú rẹ ń rìn díẹ̀ ju bó ṣe máa ń rìn lọ?",
+        "fever": "Ṣé ibà ń ṣe ọ́ tàbí ara rẹ gbóná gidigidi?",
+        "swelling": "Ṣé ojú tàbí ọwọ́ rẹ wú?",
+        "pain": "Ṣé ikùn ń dùn ọ́ gidigidi?"
+      },
+      "result": {
+        "OK": {
+          "title": "Kò sí àmì ewu",
+          "body": "O kò ní àmì ewu kankan báyìí. Tẹ̀síwájú láti máa lọ sí ìbẹ̀wò rẹ. Ṣe àyẹ̀wò lẹ́ẹ̀kan sí i bí ara rẹ bá yàtọ̀."
+        },
+        "CLINIC_SOON": {
+          "title": "Jọ̀wọ́ lọ sí ilé ìwòsàn láìpẹ́",
+          "body": "Ọ̀kan nínú àwọn ìdáhùn rẹ nílò kí nọ́ọ̀sì wò ó. Jọ̀wọ́ lọ sí ilé ìwòsàn rẹ lónìí tàbí ọ̀la."
+        },
+        "GO_NOW": {
+          "title": "Jọ̀wọ́ lọ sí ilé ìwòsàn báyìí",
+          "body": "Lọ sí ilé ìwòsàn rẹ tàbí ilé ìwòsàn tó súnmọ́ ọ jù báyìí. Bẹ ẹnìkan kí ẹ jọ lọ. Bí o kò bá lè lọ, tẹ bọtìnì pàjáwìrì."
+        }
+      },
+      "result_label": {
+        "OK": "Kò sí àmì ewu",
+        "CLINIC_SOON": "Lọ sí ilé ìwòsàn láìpẹ́",
+        "GO_NOW": "Lọ sí ilé ìwòsàn báyìí"
+      }
+    },
+    "emergency": {
+      "title": "Kí ló ṣẹlẹ̀?",
+      "intro": "Yan èyí tó súnmọ́ jù. A ó sọ fún ilé ìwòsàn rẹ àti ẹbí rẹ.",
+      "kind": {
+        "BLEEDING": "Ẹ̀jẹ̀ ń jáde púpọ̀",
+        "LABOUR": "Ìrọbí ti bẹ̀rẹ̀",
+        "FITS": "Ìjàkadì (àrùn ṣẹ̀ṣẹ̀)",
+        "BABY": "Ìṣòro pẹ̀lú ọmọ mi",
+        "OTHER": "Nǹkan mìíràn"
+      },
+      "cancel": "Padà sẹ́yìn",
+      "sentTitle": "A ti sọ fún ilé ìwòsàn rẹ",
+      "sentBody": "Dúró níbi tí o wà bí ó bá ní ààbò. A ń ṣètò ìrànlọ́wọ́.",
+      "queuedTitle": "Ó nílò ayélujára",
+      "queuedBody": "A ti fi pamọ́ sórí fóònù yìí. A ó fi ránṣẹ́ nígbà tí o bá wà lórí ayélujára. Pe tàbí kọ ọ̀rọ̀ sí ilé ìwòsàn rẹ báyìí.",
+      "call": "Pe {facility}",
+      "sms": "Fi SMS ránṣẹ́ sí {facility}",
+      "smsBody": "PÀJÁWÌRÌ. Èmi ni {name}. {kind}. Jọ̀wọ́ ràn mí lọ́wọ́.",
+      "yourAlert": "Ìkìlọ̀ rẹ tó kẹ́yìn",
+      "done": "Padà sí ojú ewé àkọ́kọ́"
+    },
+    "install": {
+      "button": "Fi ìṣàfilọ́lẹ̀ sórí fóònù",
+      "hint": "Fi Aboyun sórí fóònù rẹ kó máa ṣí bí àwọn ìṣàfilọ́lẹ̀ mìíràn, kódà láìsí data.",
+      "ios": "Láti fi sórí fóònù: tẹ bọtìnì Share, lẹ́yìn náà tẹ “Add to Home Screen”."
+    },
+    "session": {
+      "expiredTitle": "Jọ̀wọ́ wọlé lẹ́ẹ̀kan sí i",
+      "expiredBody": "O kò tíì lo ayélujára fún ju ọjọ́ méje lọ. Wọlé lẹ́ẹ̀kan sí i kí àkọsílẹ̀ rẹ lè wà ní ààbò.",
+      "signIn": "Wọlé"
+    },
+    "offline": {
+      "title": "Kò sí ayélujára",
+      "body": "Ojú ewé yìí kò tíì wà lórí fóònù rẹ. Lo ayélujára kí o tún gbìyànjú.",
+      "retry": "Gbìyànjú lẹ́ẹ̀kan sí i",
+      "home": "Ṣí ojú ewé àkọ́kọ́ mi"
+    }
   }
 }
