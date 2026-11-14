@@ -12,7 +12,16 @@ const AREA_ROLE: Record<string, Role> = {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const session = await auth.api.getSession({ headers: request.headers });
+  let session: Awaited<ReturnType<typeof auth.api.getSession>>;
+  try {
+    session = await auth.api.getSession({ headers: request.headers });
+  } catch (error) {
+    // The database was unreachable (for example Neon waking up, or a network drop).
+    // Don't crash: let the page load. Every role layout re-checks the session on the
+    // server and shows a retry screen, so nothing private is shown meanwhile.
+    console.error("Session lookup failed in proxy", error);
+    return NextResponse.next();
+  }
   const role = (session?.user as { role?: Role } | undefined)?.role;
 
   // Signed-out: only /login is reachable.
