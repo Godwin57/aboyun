@@ -8,7 +8,9 @@ import {
   resolveFlagSchema,
 } from "@/lib/clinic-validation";
 import { can } from "@/lib/rbac";
+import { z } from "zod";
 import { ServiceError } from "@/lib/services/errors";
+import { resendMotherInvite } from "@/lib/services/mother-invites";
 import { recordVisit, referMother, resolveFlag } from "@/lib/services/visits";
 
 const DENIED = "You don't have permission to do that.";
@@ -61,6 +63,29 @@ export async function referMotherAction(input: unknown): Promise<ReferResult> {
     const result = await referMother(session, parsed.data);
     refresh(parsed.data.motherId);
     return { ok: true, toFacilityName: result.toFacilityName };
+  } catch (error) {
+    if (error instanceof ServiceError) return { ok: false, error: error.message };
+    console.error(error);
+    return { ok: false, error: GENERIC };
+  }
+}
+
+export type ResendInviteResult =
+  { ok: true; via: "email" | "sms" } | { ok: false; error: string };
+
+export async function resendMotherInviteAction(
+  input: unknown,
+): Promise<ResendInviteResult> {
+  const session = await getAppSession();
+  if (!session || !can(session, "mother:update")) return { ok: false, error: DENIED };
+
+  const parsed = z.object({ motherId: z.string().min(1).max(64) }).safeParse(input);
+  if (!parsed.success) return { ok: false, error: "Check the form and try again." };
+
+  try {
+    const result = await resendMotherInvite(session, parsed.data.motherId);
+    refresh(parsed.data.motherId);
+    return { ok: true, via: result.via };
   } catch (error) {
     if (error instanceof ServiceError) return { ok: false, error: error.message };
     console.error(error);

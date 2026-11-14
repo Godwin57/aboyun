@@ -2,7 +2,12 @@ import { ArrowLeft, Check, Phone, Plus, TriangleAlert } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ReferButton, ResolveFlagButton } from "@/components/clinic/mother-actions";
+import {
+  ReferButton,
+  ResendInviteButton,
+  ResolveFlagButton,
+} from "@/components/clinic/mother-actions";
+import { motherHasPassword } from "@/lib/services/mother-invites";
 import { RiskBadge } from "@/components/clinic/risk-badge";
 import { LANGUAGE_NAMES, type LanguageCode } from "@/lib/clinic-validation";
 import { requireRole } from "@/lib/auth";
@@ -27,6 +32,8 @@ export default async function MotherRecordPage({
   const session = await requireRole("CLINIC");
   const mother = await getMother(session, id);
   if (!mother) notFound();
+
+  const needsPassword = !(await motherHasPassword(mother.userId));
 
   const today = startOfUtcDay(new Date());
   const age = gestationalAge(mother.lmp, today);
@@ -322,6 +329,14 @@ export default async function MotherRecordPage({
                 {mother.consentAt ? formatDayYear(mother.consentAt) : "Not recorded"}
               </dd>
             </dl>
+            {needsPassword && (
+              <div className="border-t border-[#efe9dc] pt-3.5">
+                <p className="text-muted-foreground mb-2 text-sm">
+                  She has not set her password yet.
+                </p>
+                <ResendInviteButton motherId={mother.id} />
+              </div>
+            )}
           </section>
 
           <section aria-labelledby="family" className={card}>

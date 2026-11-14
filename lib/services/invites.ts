@@ -1,5 +1,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { takeInviteFailure } from "@/lib/invite-email";
+import { ServiceError } from "./errors";
 
 /**
  * Email (or SMS, for phone-only mothers) a set-password link to an existing user.
@@ -10,6 +12,11 @@ export async function sendInvite(email: string) {
   await auth.api.requestPasswordReset({
     body: { email, redirectTo: "/accept-invite" },
   });
+  // Better Auth hides send errors, so check whether the message really went out.
+  const user = await db.user.findUnique({ where: { email }, select: { id: true } });
+  if (user && takeInviteFailure(user.id)) {
+    throw new ServiceError("The link could not be sent. Please try again in a moment.");
+  }
 }
 
 /** Look up an invite token without consuming it. Returns the invited user, or null. */
