@@ -5,14 +5,17 @@ import { identifyCaller } from "@/lib/services/channel-identity";
 import { triggerEmergency } from "@/lib/services/emergency";
 import { trySms } from "@/lib/services/notifications";
 import { confirmLatestReminderByPhone } from "@/lib/services/reminders";
-import { fill, USSD_TEXTS } from "@/lib/ussd-texts";
+import { USSD_TEXTS } from "@/lib/ussd-texts";
 import { checkCallbackSecret, textResponse } from "@/lib/webhook";
 
 // Africa's Talking inbound SMS callback. POST, form-encoded: from, to, text, date, id, linkId.
 // The callback URL carries ?secret=<AT_CALLBACK_SECRET>.
 //
-//   "1"                          confirm her latest reminder (mothers only)
-//   "E", "E BLEEDING", "E FITS"  raise an emergency (the mother, or a family contact for her)
+//   "1"                          confirm her latest reminder
+//   "E", "E BLEEDING", "E FITS"  raise an emergency
+//
+// Only a registered mother's own number is served. Family contacts only receive emergency
+// alerts; a text from their number is treated like any other unknown number.
 //
 // Africa's Talking ignores our response body, so any reply goes out as a separate SMS, after
 // this response, so the webhook answers fast. Texts from unknown numbers that are not
@@ -43,8 +46,7 @@ export async function POST(request: Request) {
     }
 
     if (command.kind === "confirm") {
-      // Family contacts cannot confirm a mother's reminders.
-      if (caller.kind === "mother" && phone) {
+      if (phone) {
         const { confirmed } = await confirmLatestReminderByPhone(phone);
         if (confirmed) reply(t.smsConfirmed);
       }
@@ -60,11 +62,7 @@ export async function POST(request: Request) {
           actor: { type: "SMS" },
           deferAlerts: true,
         });
-        reply(
-          caller.kind === "family"
-            ? fill(t.familyEmergencySent, { name: caller.name })
-            : t.emergencySent,
-        );
+        reply(t.emergencySent);
       } catch (error) {
         console.error("SMS emergency failed", error);
         reply(t.actionFailed);

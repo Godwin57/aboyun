@@ -1,14 +1,9 @@
 import { db } from "@/lib/db";
 import { formatDay } from "@/lib/format";
 import { logAudit } from "@/lib/services/audit";
-import { findMotherByTypedPhone, identifyCaller } from "@/lib/services/channel-identity";
+import { identifyCaller } from "@/lib/services/channel-identity";
 import { triggerEmergency } from "@/lib/services/emergency";
-import {
-  parseUssdInput,
-  ussdMenu,
-  type UssdAction,
-  type UssdContext,
-} from "@/lib/ussd-menu";
+import { ussdMenu, type UssdAction, type UssdContext } from "@/lib/ussd-menu";
 import { USSD_TEXTS } from "@/lib/ussd-texts";
 import { checkCallbackSecret, textResponse } from "@/lib/webhook";
 import { reportedSigns } from "@/lib/symptoms";
@@ -18,8 +13,8 @@ import { reportedSigns } from "@/lib/symptoms";
 // starting with "CON " (keep the session open) or "END " (close it).
 //
 // The callback URL carries ?secret=<AT_CALLBACK_SECRET>. The caller is identified by their
-// phone number: a registered mother is herself, a family contact acts for their mother, and
-// anyone else may only raise an emergency for a registered mother by typing her number.
+// phone number. Only a registered mother can use the menu; anyone else (family contacts
+// included, who only receive emergency alerts) is told the number is not registered.
 
 export async function POST(request: Request) {
   const check = checkCallbackSecret(request);
@@ -33,7 +28,6 @@ export async function POST(request: Request) {
     const text = String(form.get("text") ?? "");
 
     const caller = await identifyCaller(phone);
-    const inputs = parseUssdInput(text);
 
     let ctx: UssdContext;
     if (caller.kind === "mother") {
@@ -49,20 +43,8 @@ export async function POST(request: Request) {
           ? { dateText: formatDay(next.dueDate), contactNo: next.contactNo }
           : null,
       };
-    } else if (caller.kind === "family") {
-      ctx = { actor: "family", lang: caller.lang, motherName: caller.name };
     } else {
-      // An unknown caller types a mother's number at step 2; look it up for the menu.
-      const typed =
-        inputs[0] === "1" && inputs[1]
-          ? await findMotherByTypedPhone(inputs[1])
-          : undefined;
-      ctx = {
-        actor: "unknown",
-        lang: caller.lang,
-        typedMother:
-          typed === undefined ? undefined : typed ? { name: typed.name } : null,
-      };
+      ctx = { actor: "unknown", lang: caller.lang };
     }
 
     const reply = ussdMenu(text, ctx);
@@ -85,10 +67,8 @@ async function perform(
   caller: Awaited<ReturnType<typeof identifyCaller>>,
 ): Promise<boolean> {
   if (action.kind === "setLanguage") {
-    // A mother's choice is saved to her profile, so the app, SMS and her next USSD session
-    // all use it. A family contact's choice lasts for this session only: saving it would
-    // change the mother's language, which is not theirs to change.
-    if (caller.kind !== "mother") return true;
+    // Saved to her profile, so the app, SMS and her next USSD session all use it.
+    if (caller.kind !== "mother") return false;
     await db.mother.update({
       where: { id: caller.motherId },
       data: { language: action.lang },
@@ -103,16 +83,10 @@ async function perform(
   }
 
   if (action.kind === "emergency") {
-    const motherId =
-      caller.kind === "mother" || caller.kind === "family"
-        ? caller.motherId
-        : action.typedPhone
-          ? ((await findMotherByTypedPhone(action.typedPhone))?.id ?? null)
-          : null;
-    if (!motherId) return false;
+    if (caller.kind !== "mother") return false;
 
     await triggerEmergency({
-      motherId,
+      motherId: caller.motherId,
       kind: action.emergencyKind,
       source: "USSD",
       actor: { type: "USSD" },
@@ -122,8 +96,7 @@ async function perform(
     return true;
   }
 
-  // A symptom check is only saved for the mother herself.
-  if (caller.kind !== "mother") return true;
+  if (caller.kind !== "mother") return false;
   const signs = reportedSigns(action.answers);
   const report = await db.symptomReport.create({
     data: {
