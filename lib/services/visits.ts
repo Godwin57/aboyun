@@ -12,6 +12,7 @@ import { ancSchedule } from "@/lib/schedule";
 import type { z } from "zod";
 import { logAudit } from "./audit";
 import { ServiceError } from "./errors";
+import { findReferralFacility } from "./facilities";
 
 export type RecordVisitData = z.output<typeof recordVisitSchema>;
 
@@ -155,17 +156,7 @@ export async function referMother(
     throw new ServiceError("She has no open flag that needs a referral.");
   }
 
-  const destination =
-    (await db.facility.findFirst({
-      where: { id: { not: mother.facilityId }, hasCSection: true, hasBlood: true },
-      orderBy: { name: "asc" },
-    })) ??
-    (await db.facility.findFirst({
-      where: { id: { not: mother.facilityId } },
-      orderBy: { name: "asc" },
-    }));
-  if (!destination)
-    throw new ServiceError("No other facility is set up to receive referrals.");
+  const destination = await findReferralFacility(mother.facilityId);
 
   const reason = input.reason || referFlags.map((f) => f.reason).join("; ");
 

@@ -5,6 +5,15 @@ import { sendEmail } from "@/lib/email";
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { isPlaceholderEmail } from "@/lib/phone";
 
+// Better Auth swallows errors thrown by sendResetPassword, so a failed send is recorded
+// here for `sendInvite` to check straight after (same request, same process).
+const failedSends = new Set<string>();
+
+/** True once if the last invite message for this user could not be sent. */
+export function takeInviteFailure(userId: string): boolean {
+  return failedSends.delete(userId);
+}
+
 /**
  * Send the "set your password" link, in the person's own language
  * (a mother's saved language, otherwise English).
@@ -16,6 +25,16 @@ export async function sendInviteMessage(
   user: { id: string; email: string },
   url: string,
 ) {
+  failedSends.delete(user.id);
+  try {
+    await deliverInviteMessage(user, url);
+  } catch (error) {
+    console.error("Invite message failed", error);
+    failedSends.add(user.id);
+  }
+}
+
+async function deliverInviteMessage(user: { id: string; email: string }, url: string) {
   const mother = await db.mother.findUnique({
     where: { userId: user.id },
     select: { language: true },
@@ -29,7 +48,8 @@ export async function sendInviteMessage(
       where: { id: user.id },
       select: { phoneNumber: true },
     });
-    if (row?.phoneNumber) await sendSms(row.phoneNumber, t("sms", { url }));
+    if (!row?.phoneNumber) throw new Error("No phone number to send the link to");
+    await sendSms(row.phoneNumber, t("sms", { url }));
     return;
   }
 

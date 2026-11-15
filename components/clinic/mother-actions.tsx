@@ -5,6 +5,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import {
   referMotherAction,
+  resendMotherInviteAction,
   resolveFlagAction,
 } from "@/app/(roles)/clinic/mothers/[id]/actions";
 
@@ -31,6 +32,35 @@ export function ReferButton({ motherId }: { motherId: string }) {
       className="btn-danger min-h-12 cursor-pointer rounded-xl px-5 font-semibold disabled:opacity-70"
     >
       {pending ? "Saving…" : "Mark as referred"}
+    </button>
+  );
+}
+
+/** Sends her a new set-password link (shown only while she has no password). */
+export function ResendInviteButton({ motherId }: { motherId: string }) {
+  const [pending, startTransition] = useTransition();
+
+  return (
+    <button
+      type="button"
+      disabled={pending}
+      onClick={() =>
+        startTransition(async () => {
+          const result = await resendMotherInviteAction({ motherId });
+          if (!result.ok) {
+            toast.error(result.error);
+            return;
+          }
+          toast.success(
+            result.via === "sms"
+              ? "Link sent by SMS. It works for 7 days."
+              : "Link sent by email. It works for 7 days.",
+          );
+        })
+      }
+      className="neu-raised min-h-11 cursor-pointer rounded-xl px-3.5 text-sm font-medium disabled:opacity-70"
+    >
+      {pending ? "Sending…" : "Resend password link"}
     </button>
   );
 }

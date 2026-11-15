@@ -50,5 +50,139 @@
     "button": "Tọọ paswọọdụ m",
     "footer": "Njikọ a na-arụ ọrụ otu ugboro ma ọ ga-agwụ ná ụbọchị 7.",
     "sms": "Aboyun: tọọ paswọọdụ gị ebe a: {url}"
+  },
+  "Mother": {
+    "header": {
+      "sync": "Mekọrịta",
+      "syncing": "Ọ na-emekọrịta…",
+      "online": "Ịntanetị adị",
+      "offline": "Enweghị ịntanetị",
+      "waiting": "{count, plural, other {# na-eche ka e zipu}}",
+      "allSent": "E zipụla ihe niile",
+      "lastSync": "Mkọrịta ikpeazụ: {time}",
+      "neverSynced": "Emekọritabeghị"
+    },
+    "badge": {
+      "device": "Echekwara na ekwentị a",
+      "synced": "Emekọritala"
+    },
+    "home": {
+      "greeting": "Ndewo, {name}",
+      "weeks": "{weeks, plural, other {Afọ ime izu #}}",
+      "postnatal": "Mgbe ịmụchara nwa",
+      "loading": "Ọ na-ebugo…",
+      "needsConnection": "Jiri ịntanetị otu ugboro ka anyị bulite ozi gị. Mgbe nke ahụ gasịrị, ngwa a ga-arụ ọrụ na-enweghị ịntanetị.",
+      "retry": "Nwaa ọzọ",
+      "nextVisit": "Nleta gị nke na-esote",
+      "noVisit": "Edebeghị ụbọchị nleta maka gị. Ụlọ ọgwụ gị ga-agwa gị.",
+      "today": "Taa",
+      "tomorrow": "Echi",
+      "inDays": "Mgbe ụbọchị {days} gasịrị",
+      "passed": "Ụbọchị nleta a agabigala. Biko gaa ụlọ ọgwụ gị.",
+      "at": "Na {facility}",
+      "emergency": "ỌNỌDỤ ỊKPA",
+      "emergencyHint": "Pịa ya ma ọ bụrụ na gị ma ọ bụ nwa gị chọrọ enyemaka ugbu a",
+      "checkTitle": "Kedu ka ahụ gị si adị?",
+      "checkHint": "Zaa ajụjụ ole na ole: ee ma ọ bụ mba",
+      "clinic": "Ụlọ ọgwụ gị"
+    },
+    "risk": {
+      "LOW": {
+        "title": "I na-eme nke ọma",
+        "body": "Gaa n'ihu ịga nleta gị ma na-ewere ọgwụ gị."
+      },
+      "MEDIUM": {
+        "title": "Ụlọ ọgwụ gị na-ele gị anya nke ọma",
+        "body": "Biko ahapụla nleta gị nke na-esote."
+      },
+      "HIGH": {
+        "title": "Ụlọ ọgwụ gị chọrọ ịhụ gị n'oge na-adịghị anya",
+        "body": "Biko kpọọ ụlọ ọgwụ gị, ma ọ bụ gaa nleta gị nke na-esote."
+      }
+    },
+    "tablet": {
+      "title": "Ọgwụ gị taa",
+      "prompt": "I wetụla ọgwụ gị taa?",
+      "button": "Ewetụla m ọgwụ m taa",
+      "done": "Ọ dị mma! I wetụla ọgwụ gị taa."
+    },
+    "check": {
+      "title": "Nlele ihe mgbaàmà",
+      "intro": "Chee otú ahụ gị si adị ugbu a. Zaa ee ma ọ bụ mba.",
+      "yes": "Ee",
+      "no": "Mba",
+      "submit": "Gosi m nsonaazụ m",
+      "answerAll": "Biko zaa ajụjụ niile.",
+      "back": "Laghachi azụ",
+      "again": "Lelee ọzọ",
+      "recent": "Nlele ndị e mere n'oge na-adịbeghị anya",
+      "none": "Ị lebeghị anya ọbụla.",
+      "signs": {
+        "bleeding": "Ọbara na-esi n'akụkụ ahụ nwanyị gị apụta?",
+        "headache": "Isi na-eme gị nnukwu mgbu?",
+        "vision": "Anya gị na-ele ihe n'ụzọ na-adịghị mma?",
+        "fits": "I nwere ọdịdọ ma ọ bụ ịma jijiji nke ị na-enweghị ike ijikwa?",
+        "movement": "Nwa dị gị n'afọ anaghị ejegharị dị ka mbụ?",
+        "fever": "Ahụ ọkụ na-ere gị ma ọ bụ ahụ gị na-ekpo ọkụ nke ukwuu?",
+        "swelling": "Ihu gị ma ọ bụ aka gị ejiriela?",
+        "pain": "Afọ na-ewute gị nke ukwuu?"
+      },
+      "result": {
+        "OK": {
+          "title": "Enweghị ihe mgbaàmà ize ndụ",
+          "body": "Ị nweghị ihe mgbaàmà ize ndụ ugbu a. Gaa n'ihu ịga nleta gị. Lelee ọzọ ma ọ bụrụ na ahụ gị gbanwere."
+        },
+        "CLINIC_SOON": {
+          "title": "Biko gaa ụlọ ọgwụ n'oge na-adịghị anya",
+          "body": "Otu n'ime azịza gị chọrọ ka onye nọọsụ lelee ya. Biko gaa ụlọ ọgwụ gị taa ma ọ bụ echi."
+        },
+        "GO_NOW": {
+          "title": "Biko gaa ụlọ ọgwụ ugbu a",
+          "body": "Gaa ụlọ ọgwụ gị ma ọ bụ ụlọ ọgwụ kacha nso ugbu a. Rịọ onye ka unu so gaa. Ọ bụrụ na ịnweghị ike ịga, pịa bọtịnụ ọnọdụ ịkpa."
+        }
+      },
+      "result_label": {
+        "OK": "Enweghị ihe mgbaàmà ize ndụ",
+        "CLINIC_SOON": "Gaa ụlọ ọgwụ n'oge na-adịghị anya",
+        "GO_NOW": "Gaa ụlọ ọgwụ ugbu a"
+      }
+    },
+    "emergency": {
+      "title": "Gịnị mere?",
+      "intro": "Họrọ nke kacha dị nso. A ga-agwa ụlọ ọgwụ gị na ezinụlọ gị.",
+      "kind": {
+        "BLEEDING": "Ọbara na-apụta nke ukwuu",
+        "LABOUR": "Ime amalitela",
+        "FITS": "Ọdịdọ",
+        "BABY": "Nsogbu nwa m",
+        "OTHER": "Ihe ọzọ"
+      },
+      "cancel": "Laghachi azụ",
+      "sentTitle": "E gwala ụlọ ọgwụ gị",
+      "sentBody": "Nọrọ ebe i nọ ma ọ bụrụ na ọ dị mma. A na-ahazi enyemaka.",
+      "queuedTitle": "Ọ chọrọ ịntanetị",
+      "queuedBody": "Echekwara ya na ekwentị a. A ga-ezipu ya ozugbo ịntanetị dị. Kpọọ ma ọ bụ degara ụlọ ọgwụ gị ozi ugbu a.",
+      "call": "Kpọọ {facility}",
+      "sms": "Zipu SMS na {facility}",
+      "smsBody": "ỌNỌDỤ ỊKPA. Abụ m {name}. {kind}. Biko nyere m aka.",
+      "yourAlert": "Ọkwa gị nke ikpeazụ",
+      "done": "Laghachi n'ala ụlọ"
+    },
+    "install": {
+      "button": "Wụnye ngwa a",
+      "hint": "Debe Aboyun na ekwentị gị ka ọ na-emepe dị ka ngwa ọzọ, ọbụna na-enweghị data.",
+      "ios": "Iji wụnye: pịa bọtịnụ Share, wee pịa “Add to Home Screen”."
+    },
+    "session": {
+      "expiredTitle": "Biko banye ọzọ",
+      "expiredBody": "Ị nọghị n'ịntanetị ihe karịrị ụbọchị 7. Banye ọzọ ka ndekọ gị nọrọ n'udo.",
+      "signIn": "Banye"
+    },
+    "offline": {
+      "title": "Enweghị ịntanetị",
+      "body": "Ihü ahụ adịghị na ekwentị gị ugbu a. Jiri ịntanetị wee nwaa ọzọ.",
+      "retry": "Nwaa ọzọ",
+      "home": "Mepe ihü ụlọ m"
+    }
   }
 }

@@ -9,6 +9,12 @@ function createClient() {
     // Neon computes scale to zero; the first query after idle can take several
     // seconds while the compute wakes up, so allow for it.
     connectionTimeoutMillis: 15_000,
+    // Drop idle connections quickly. Neon (and home routers) close idle sockets, and a
+    // pooled connection that was closed behind our back is what causes "Failed to get
+    // session" or "can't reach database" on the next request.
+    idleTimeoutMillis: 10_000,
+    keepAlive: true,
+    max: 5,
   });
   return new PrismaClient({ adapter });
 }
