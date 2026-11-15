@@ -60,7 +60,8 @@
       "waiting": "{count, plural, other {# na-eche ka e zipu}}",
       "allSent": "E zipụla ihe niile",
       "lastSync": "Mkọrịta ikpeazụ: {time}",
-      "neverSynced": "Emekọritabeghị"
+      "neverSynced": "Emekọritabeghị",
+      "upToDate": "Echekwala ihe niile"
     },
     "badge": {
       "device": "Echekwara na ekwentị a",
@@ -84,7 +85,9 @@
       "emergencyHint": "Pịa ya ma ọ bụrụ na gị ma ọ bụ nwa gị chọrọ enyemaka ugbu a",
       "checkTitle": "Kedu ka ahụ gị si adị?",
       "checkHint": "Zaa ajụjụ ole na ole: ee ma ọ bụ mba",
-      "clinic": "Ụlọ ọgwụ gị"
+      "clinic": "Ụlọ ọgwụ gị",
+      "hello": "Nnọọ",
+      "weeksToGo": "{weeks, plural, one {izu # fọdụrụ} other {izu # fọdụrụ}}"
     },
     "risk": {
       "LOW": {
@@ -145,7 +148,13 @@
         "OK": "Enweghị ihe mgbaàmà ize ndụ",
         "CLINIC_SOON": "Gaa ụlọ ọgwụ n'oge na-adịghị anya",
         "GO_NOW": "Gaa ụlọ ọgwụ ugbu a"
-      }
+      },
+      "step": "{current} n'ime {total}",
+      "previous": "Ajụjụ gara aga",
+      "youSaidYes": "I zara e e maka",
+      "callClinic": "Kpọọ ụlọ ọgwụ gị",
+      "tellClinic": "Gwa ụlọ ọgwụ m na ezinụlọ m",
+      "home": "Laghachi n'ụlọ"
     },
     "emergency": {
       "title": "Gịnị mere?",
@@ -166,7 +175,12 @@
       "sms": "Zipu SMS na {facility}",
       "smsBody": "ỌNỌDỤ ỊKPA. Abụ m {name}. {kind}. Biko nyere m aka.",
       "yourAlert": "Ọkwa gị nke ikpeazụ",
-      "done": "Laghachi n'ala ụlọ"
+      "done": "Laghachi n'ala ụlọ",
+      "offlineNote": "Enweghị data? Ọ dịghị ihe. Echekwala ọkwa gị na ekwentị gị, a ga-ezipụ ya ozugbo i nwetara ịntanetị.",
+      "savedTitle": "Echekwala ọkwa gị",
+      "callNow": "Echela. Kpọọ ụlọ ọgwụ gị ugbu a.",
+      "waiting": "Na-echere ka e zipụ",
+      "inDanger": "Ị nọ n'ihe ize ndụ ugbu a? Ihe mberede"
     },
     "install": {
       "button": "Wụnye ngwa a",
@@ -183,6 +197,21 @@
       "body": "Ihü ahụ adịghị na ekwentị gị ugbu a. Jiri ịntanetị wee nwaa ọzọ.",
       "retry": "Nwaa ọzọ",
       "home": "Mepe ihü ụlọ m"
+    },
+    "nav": {
+      "home": "Ụlọ",
+      "check": "Nyochaa",
+      "visits": "Nleta",
+      "label": "Isi ndepụta"
+    },
+    "visits": {
+      "title": "Nleta m",
+      "progress": "{done} n'ime {total} nleta emechala",
+      "visit": "Nleta {n}",
+      "postnatal": "Nleta mgbe a mụrụ nwa",
+      "doneOn": "Emechala, {date}",
+      "next": "Nleta na-esote",
+      "none": "Enweghị nleta ọ bụla. Ụlọ ọgwụ gị ga-eme atụmatụ ha na gị."
     }
   }
 }
