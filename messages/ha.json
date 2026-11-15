@@ -60,7 +60,8 @@
       "waiting": "{count, plural, one {# yana jira a aika} other {# suna jira a aika}}",
       "allSent": "An aika komai",
       "lastSync": "Daidaitawa ta ƙarshe: {time}",
-      "neverSynced": "Ba a daidaita ba tukuna"
+      "neverSynced": "Ba a daidaita ba tukuna",
+      "upToDate": "An adana komai"
     },
     "badge": {
       "device": "An adana a wannan wayar",
@@ -84,7 +85,9 @@
       "emergencyHint": "Danna idan ke ko jaririnki kuna buƙatar taimako yanzu",
       "checkTitle": "Yaya jikinki yake?",
       "checkHint": "Amsa 'yan tambayoyi: eh ko a'a",
-      "clinic": "Asibitinki"
+      "clinic": "Asibitinki",
+      "hello": "Sannu",
+      "weeksToGo": "{weeks, plural, one {sati # ya rage} other {sati # sun rage}}"
     },
     "risk": {
       "LOW": {
@@ -145,7 +148,13 @@
         "OK": "Babu alamar haɗari",
         "CLINIC_SOON": "Ki je asibiti nan ba da daɗewa ba",
         "GO_NOW": "Ki je asibiti yanzu"
-      }
+      },
+      "step": "{current} daga {total}",
+      "previous": "Tambayar da ta gabata",
+      "youSaidYes": "Kin amsa eh ga",
+      "callClinic": "Kira asibitinki",
+      "tellClinic": "Sanar da asibitina da iyalina",
+      "home": "Koma gida"
     },
     "emergency": {
       "title": "Me ya faru?",
@@ -166,7 +175,12 @@
       "sms": "Aika SMS zuwa {facility}",
       "smsBody": "GAGGAWA. Ni ce {name}. {kind}. Don Allah ku taimake ni.",
       "yourAlert": "Gargaɗinki na ƙarshe",
-      "done": "Koma shafin farko"
+      "done": "Koma shafin farko",
+      "offlineNote": "Babu data? Ba matsala. An adana faɗakarwarki a wayarki kuma za a aika ta da zarar kin dawo kan intanet.",
+      "savedTitle": "An adana faɗakarwarki",
+      "callNow": "Kada ki jira. Kira asibitinki yanzu.",
+      "waiting": "Ana jiran aikawa",
+      "inDanger": "Kina cikin haɗari yanzu? Gaggawa"
     },
     "install": {
       "button": "Sanya manhajar",
@@ -183,6 +197,21 @@
       "body": "Ba a adana wannan shafin a wayarki ba tukuna. Ki haɗa intanet ki sake gwadawa.",
       "retry": "Sake gwadawa",
       "home": "Buɗe shafina na farko"
+    },
+    "nav": {
+      "home": "Gida",
+      "check": "Bincika",
+      "visits": "Ziyara",
+      "label": "Babban menu"
+    },
+    "visits": {
+      "title": "Ziyarorina",
+      "progress": "An kammala ziyara {done} daga {total}",
+      "visit": "Ziyara ta {n}",
+      "postnatal": "Ziyarar bayan haihuwa",
+      "doneOn": "An yi, {date}",
+      "next": "Ziyara ta gaba",
+      "none": "Babu ziyara tukuna. Asibitinki zai shirya su tare da ke."
     }
   }
 }

@@ -60,7 +60,8 @@
       "waiting": "{count, plural, one {# item waiting to send} other {# items waiting to send}}",
       "allSent": "Everything is sent",
       "lastSync": "Last synced: {time}",
-      "neverSynced": "Not synced yet"
+      "neverSynced": "Not synced yet",
+      "upToDate": "Saved and up to date"
     },
     "badge": {
       "device": "Saved on this device",
@@ -84,7 +85,9 @@
       "emergencyHint": "Press if you or your baby need help now",
       "checkTitle": "How do you feel?",
       "checkHint": "Answer a few yes or no questions",
-      "clinic": "Your clinic"
+      "clinic": "Your clinic",
+      "hello": "Hello",
+      "weeksToGo": "{weeks, plural, one {# week to go} other {# weeks to go}}"
     },
     "risk": {
       "LOW": {
@@ -145,7 +148,13 @@
         "OK": "No danger signs",
         "CLINIC_SOON": "See clinic soon",
         "GO_NOW": "Go to clinic now"
-      }
+      },
+      "step": "{current} of {total}",
+      "previous": "Previous question",
+      "youSaidYes": "You said yes to",
+      "callClinic": "Call your clinic",
+      "tellClinic": "Tell my clinic and family",
+      "home": "Back to home"
     },
     "emergency": {
       "title": "What is the emergency?",
@@ -166,7 +175,12 @@
       "sms": "Send an SMS to {facility}",
       "smsBody": "EMERGENCY. I am {name}. {kind}. Please help.",
       "yourAlert": "Your last alert",
-      "done": "Back to home"
+      "done": "Back to home",
+      "offlineNote": "No data? No problem. Your alert is saved on your phone and sent as soon as you are back online.",
+      "savedTitle": "Your alert is saved",
+      "callNow": "Do not wait. Call your clinic now.",
+      "waiting": "Waiting to send",
+      "inDanger": "In danger now? Emergency"
     },
     "install": {
       "button": "Install the app",
@@ -183,6 +197,21 @@
       "body": "This page is not saved on your phone yet. Connect to the internet and try again.",
       "retry": "Try again",
       "home": "Open my home page"
+    },
+    "nav": {
+      "home": "Home",
+      "check": "Check",
+      "visits": "Visits",
+      "label": "Main menu"
+    },
+    "visits": {
+      "title": "My visits",
+      "progress": "{done} of {total} visits done",
+      "visit": "Visit {n}",
+      "postnatal": "After-birth visit",
+      "doneOn": "Done, {date}",
+      "next": "Next visit",
+      "none": "No visits yet. Your clinic will plan them with you."
     }
   }
 }

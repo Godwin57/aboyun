@@ -60,7 +60,8 @@
       "waiting": "{count, plural, one {# thing dey wait make e go} other {# things dey wait make dem go}}",
       "allSent": "Everything don go",
       "lastSync": "Last time e sync: {time}",
-      "neverSynced": "E never sync yet"
+      "neverSynced": "E never sync yet",
+      "upToDate": "Everything don save"
     },
     "badge": {
       "device": "Dem save am for this phone",
@@ -84,7 +85,9 @@
       "emergencyHint": "Press am if you or your pikin need help now now",
       "checkTitle": "How body dey?",
       "checkHint": "Answer small yes or no questions",
-      "clinic": "Your clinic"
+      "clinic": "Your clinic",
+      "hello": "Hello",
+      "weeksToGo": "{weeks, plural, one {# week remain} other {# weeks remain}}"
     },
     "risk": {
       "LOW": {
@@ -145,7 +148,13 @@
         "OK": "No danger sign",
         "CLINIC_SOON": "Go clinic soon",
         "GO_NOW": "Go clinic now"
-      }
+      },
+      "step": "{current} of {total}",
+      "previous": "Question wey pass",
+      "youSaidYes": "You talk yes to",
+      "callClinic": "Call your clinic",
+      "tellClinic": "Tell my clinic and family",
+      "home": "Go back home"
     },
     "emergency": {
       "title": "Wetin happen?",
@@ -166,7 +175,12 @@
       "sms": "Send SMS to {facility}",
       "smsBody": "EMERGENCY. Na me {name}. {kind}. Abeg help me.",
       "yourAlert": "Your last alert",
-      "done": "Back to home"
+      "done": "Back to home",
+      "offlineNote": "No network? No wahala. We don save your alert for your phone, e go send as network come back.",
+      "savedTitle": "We don save your alert",
+      "callNow": "No wait. Call your clinic now.",
+      "waiting": "E dey wait to send",
+      "inDanger": "Danger dey now? Emergency"
     },
     "install": {
       "button": "Install the app",
@@ -183,6 +197,21 @@
       "body": "This page no dey your phone yet. Use network and try again.",
       "retry": "Try again",
       "home": "Open my home page"
+    },
+    "nav": {
+      "home": "Home",
+      "check": "Check",
+      "visits": "Visit dem",
+      "label": "Main menu"
+    },
+    "visits": {
+      "title": "My clinic visit dem",
+      "progress": "{done} of {total} visit don happen",
+      "visit": "Visit {n}",
+      "postnatal": "Visit after birth",
+      "doneOn": "Don do, {date}",
+      "next": "Next visit",
+      "none": "No visit dey yet. Your clinic go plan dem with you."
     }
   }
 }
