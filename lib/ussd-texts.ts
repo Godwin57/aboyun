@@ -34,8 +34,12 @@ export type UssdSign = (typeof USSD_SYMPTOM_ORDER)[number];
 
 export type UssdTexts = {
   main: string;
+  /** Menu for a family contact: `{name}` is the mother's name. */
+  familyMain: string;
   emergencyAsk: string;
   emergencySent: string;
+  /** `{name}` is the mother's name. */
+  familyEmergencySent: string;
   /** One full question per sign, each ending with the yes/no choices. */
   question: Record<UssdSign, string>;
   resultOk: string;
@@ -45,7 +49,10 @@ export type UssdTexts = {
   nextVisit: string;
   noVisit: string;
   wrong: string;
+  unknownMenu: string;
   unknownEnd: string;
+  familyAskPhone: string;
+  familyNotFound: string;
   /** The alert could not be saved: she must not believe help is coming. */
   actionFailed: string;
   /** SMS replies. */
@@ -61,10 +68,13 @@ export type UssdTexts = {
 export const USSD_TEXTS: Record<Lang, UssdTexts> = {
   en: {
     main: "Aboyun\n1. Emergency\n2. Check my symptoms\n3. My next visit",
+    familyMain: "Aboyun\nFor {name}:\n1. Emergency",
     emergencyAsk:
       "What is happening?\n1. Bleeding\n2. Labour\n3. Fits\n4. Problem with the baby\n5. Something else",
     emergencySent:
       "Help is being sent. Your clinic and your family have been told. If you can, go to the clinic now.",
+    familyEmergencySent:
+      "Help is being sent for {name}. Her clinic and her family have been told.",
     question: {
       bleeding: "Do you have vaginal bleeding?\n1. Yes\n2. No",
       fits: "Have you had fits?\n1. Yes\n2. No",
@@ -84,7 +94,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     nextVisit: "Your next visit is {date} (visit {n} of 8). Please come.",
     noVisit: "You have no visit planned. Ask your clinic.",
     wrong: "Wrong choice. Please dial again.",
+    unknownMenu: "Aboyun\n1. Help a mother (enter her phone number)",
     unknownEnd: "This number is not registered. Please ask your clinic to register you.",
+    familyAskPhone: "Enter the mother's phone number (for example 08031234567)",
+    familyNotFound: "We could not find that mother. Check the number and dial again.",
     actionFailed: "We could not send the alert. Please call your clinic now.",
     smsConfirmed: "Thank you. We have noted that you will come to your visit.",
     smsHelp:
@@ -96,10 +109,13 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
   },
   pcm: {
     main: "Aboyun\n1. Emergency\n2. Check how body dey\n3. My next visit",
+    familyMain: "Aboyun\nFor {name}:\n1. Emergency",
     emergencyAsk:
       "Wetin dey happen?\n1. Blood dey comot\n2. Labour\n3. Fits\n4. Wahala for pikin\n5. Another thing",
     emergencySent:
       "We don send help. We don tell your clinic and your family. If you fit, go clinic now.",
+    familyEmergencySent:
+      "We don send help for {name}. We don tell her clinic and her family.",
     question: {
       bleeding: "Blood dey comot from down?\n1. Yes\n2. No",
       fits: "You don get fits?\n1. Yes\n2. No",
@@ -118,7 +134,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     nextVisit: "Your next visit na {date} (visit {n} of 8). Abeg come.",
     noVisit: "You no get visit wey dem plan. Ask your clinic.",
     wrong: "Wrong choice. Abeg dial again.",
+    unknownMenu: "Aboyun\n1. Help one mama (put her phone number)",
     unknownEnd: "Dem never register this number. Ask your clinic make dem register you.",
+    familyAskPhone: "Put the mama phone number (like 08031234567)",
+    familyNotFound: "We no see that mama. Check the number and dial again.",
     actionFailed: "We no fit send the alert. Abeg call your clinic now.",
     smsConfirmed: "Thank you. We don note say you go come your visit.",
     smsHelp:
@@ -130,10 +149,13 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
   },
   yo: {
     main: "Aboyun\n1. Pàjáwìrì\n2. Ṣàyẹ̀wò àwọn àmì ara mi\n3. Ìbẹ̀wò mi tó kàn",
+    familyMain: "Aboyun\nFún {name}:\n1. Pàjáwìrì",
     emergencyAsk:
       "Kí ló ń ṣẹlẹ̀?\n1. Ẹ̀jẹ̀ ń jáde\n2. Ìrọbí\n3. Ara ń gbọ̀n\n4. Ìṣòro pẹ̀lú ọmọ\n5. Nǹkan mìíràn",
     emergencySent:
       "A ń fi ìrànlọ́wọ́ ránṣẹ́. A ti sọ fún ilé ìwòsàn rẹ àti ẹbí rẹ. Tí o bá lè, lọ sí ilé ìwòsàn nísinsìnyí.",
+    familyEmergencySent:
+      "A ń fi ìrànlọ́wọ́ ránṣẹ́ sí {name}. A ti sọ fún ilé ìwòsàn àti ẹbí rẹ̀.",
     question: {
       bleeding: "Ṣé ẹ̀jẹ̀ ń jáde ní ìsàlẹ̀?\n1. Bẹ́ẹ̀ ni\n2. Rárá",
       fits: "Ṣé ara rẹ ti gbọ̀n rí?\n1. Bẹ́ẹ̀ ni\n2. Rárá",
@@ -153,7 +175,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     nextVisit: "Ìbẹ̀wò rẹ tó kàn ni {date} (ìbẹ̀wò {n} nínú 8). Jọ̀wọ́ wá.",
     noVisit: "Kò sí ìbẹ̀wò tí a ṣètò fún ọ. Béèrè ní ilé ìwòsàn rẹ.",
     wrong: "Yíyàn tí kò tọ́. Jọ̀wọ́ tún pè.",
+    unknownMenu: "Aboyun\n1. Ran ìyá kan lọ́wọ́ (fi nọ́ńbà fóònù rẹ̀ sí)",
     unknownEnd: "A kò tíì forúkọ nọ́ńbà yìí sílẹ̀. Bẹ ilé ìwòsàn rẹ kí wọ́n forúkọ rẹ sílẹ̀.",
+    familyAskPhone: "Fi nọ́ńbà fóònù ìyá náà sí (bíi 08031234567)",
+    familyNotFound: "A kò rí ìyá náà. Ṣàyẹ̀wò nọ́ńbà náà kí o tún pè.",
     actionFailed: "A kò lè fi ìkìlọ̀ ránṣẹ́. Jọ̀wọ́ pe ilé ìwòsàn rẹ nísinsìnyí.",
     smsConfirmed: "O ṣé. A ti kọ sílẹ̀ pé o máa wá sí ìbẹ̀wò rẹ.",
     smsHelp:
@@ -165,10 +190,13 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
   },
   ig: {
     main: "Aboyun\n1. Ihe mberede\n2. Lelee ihe m na-enwe\n3. Nleta m ọzọ",
+    familyMain: "Aboyun\nMaka {name}:\n1. Ihe mberede",
     emergencyAsk:
       "Gịnị na-eme?\n1. Ọbara na-apụta\n2. Ime na-agba\n3. Ọdịdọ\n4. Nsogbu nwa\n5. Ihe ọzọ",
     emergencySent:
       "Anyị na-eziga enyemaka. Anyị agwala ụlọ ọgwụ gị na ezinụlọ gị. Ọ bụrụ na ị nwere ike, gaa ụlọ ọgwụ ugbu a.",
+    familyEmergencySent:
+      "Anyị na-eziga enyemaka maka {name}. Anyị agwala ụlọ ọgwụ ya na ezinụlọ ya.",
     question: {
       bleeding: "Ọbara na-apụta n'ala?\n1. Ee\n2. Mba",
       fits: "Ị nwere ọdịdọ?\n1. Ee\n2. Mba",
@@ -188,7 +216,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     nextVisit: "Nleta gị na-esote bụ {date} (nleta {n} n'ime 8). Biko bia.",
     noVisit: "Enweghị nleta ahaziri gị. Jụọ ụlọ ọgwụ gị.",
     wrong: "Nhọrọ ezighi ezi. Biko kpọọ ọzọ.",
+    unknownMenu: "Aboyun\n1. Nyere nne aka (tinye ọnụọgụ ekwentị ya)",
     unknownEnd: "Edeghị ọnụọgụ a. Jụọ ụlọ ọgwụ gị ka ha dee gị aha.",
+    familyAskPhone: "Tinye ọnụọgụ ekwentị nne ahụ (dị ka 08031234567)",
+    familyNotFound: "Anyị ahụghị nne ahụ. Lelee ọnụọgụ ahụ ma kpọọ ọzọ.",
     actionFailed: "Anyị enweghị ike izipu ọkwa. Biko kpọọ ụlọ ọgwụ gị ugbu a.",
     smsConfirmed: "Daalụ. Edeela anyị na ị ga-abịa nleta gị.",
     smsHelp:
@@ -200,10 +231,12 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
   },
   ha: {
     main: "Aboyun\n1. Gaggawa\n2. Duba alamomina\n3. Ziyara ta ta gaba",
+    familyMain: "Aboyun\nGa {name}:\n1. Gaggawa",
     emergencyAsk:
       "Me ke faruwa?\n1. Zubar jini\n2. Naƙuda\n3. Farfaɗiya\n4. Matsalar jariri\n5. Wani abu daban",
     emergencySent:
       "Ana aika taimako. An gaya wa asibitinku da iyalinku. Idan za ku iya, ku je asibiti yanzu.",
+    familyEmergencySent: "Ana aika taimako ga {name}. An gaya wa asibitinta da iyalinta.",
     question: {
       bleeding: "Kina zubar da jini?\n1. Eh\n2. A'a",
       fits: "Kin yi farfaɗiya?\n1. Eh\n2. A'a",
@@ -223,8 +256,11 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     nextVisit: "Ziyararki ta gaba ita ce {date} (ziyara {n} cikin 8). Don Allah ki zo.",
     noVisit: "Babu ziyarar da aka tsara miki. Ki tambayi asibitinki.",
     wrong: "Zaɓi ba daidai ba. Don Allah ki sake kira.",
+    unknownMenu: "Aboyun\n1. Taimaki wata uwa (shigar da lambar wayarta)",
     unknownEnd:
       "Ba a yi wa wannan lambar rajista ba. Ki tambayi asibitinki ya yi miki rajista.",
+    familyAskPhone: "Shigar da lambar wayar uwar (misali 08031234567)",
+    familyNotFound: "Ba mu sami uwar ba. Duba lambar ki sake kira.",
     actionFailed: "Ba mu iya aika saƙon ba. Don Allah ki kira asibitinki yanzu.",
     smsConfirmed: "Na gode. Mun lura za ki zo ziyararki.",
     smsHelp:

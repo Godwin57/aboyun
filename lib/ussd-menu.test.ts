@@ -61,6 +61,11 @@ describe("welcome screen", () => {
     assert.match(ussdMenu("", mother({ lang: "pcm" })).text, /Make we continue/);
   });
 
+  it("is also the first screen for a family contact", () => {
+    const family: UssdContext = { actor: "family", lang: "ig", motherName: "Ngozi" };
+    assert.equal(ussdMenu("", family).text, welcomeScreen("ig"));
+  });
+
   it("anything other than 1 or 2 ends the session", () => {
     for (const text of ["3", "0", "x", "11x"]) {
       const r = ussdMenu(text, mother());
@@ -234,32 +239,90 @@ describe("mother: next visit", () => {
   });
 });
 
-describe("callers who are not registered mothers", () => {
-  // Family contacts only receive emergency alerts; they are treated like any stranger.
-  const unknown: UssdContext = { actor: "unknown", lang: "en" };
-
-  it("is told the number is not registered, whatever they type", () => {
-    for (const text of [
-      "",
-      "1",
-      "2",
-      "1*1",
-      "1*08031234567",
-      "1*08031234567*1",
-      "2*5",
-      "3",
-    ]) {
-      const r = ussdMenu(text, unknown);
-      assert.equal(r.type, "END", text);
-      assert.equal(r.text, USSD_TEXTS.en.unknownEnd, text);
-      assert.equal(r.action, undefined, text);
-    }
+describe("family contact", () => {
+  const family = (lang: "en" | "ig" | "ha" = "en"): UssdContext => ({
+    actor: "family",
+    lang,
+    motherName: "Funmilayo Adeyemi",
   });
 
-  it("can never raise an emergency or save a language", () => {
-    for (const text of ["1*1", "1*1*1", "2*4", "2*4*1*1"]) {
-      assert.equal(ussdMenu(text, unknown).action, undefined, text);
-    }
+  it("only offers an emergency, for her, after Continue", () => {
+    const r = ussdMenu(go(), family());
+    assert.equal(r.type, "CON");
+    assert.match(r.text, /For Funmilayo Adeyemi/);
+    assert.doesNotMatch(r.text, /symptoms/);
+  });
+
+  it("raises an emergency and names the mother", () => {
+    const r = ussdMenu(go("1*3"), family());
+    assert.equal(r.type, "END");
+    assert.deepEqual(r.action, { kind: "emergency", emergencyKind: "FITS" });
+    assert.match(r.text, /Funmilayo Adeyemi/);
+  });
+
+  it("does not offer her symptom check or visits", () => {
+    assert.match(ussdMenu(go("2"), family()).text, /Wrong choice/);
+    assert.match(ussdMenu(go("3"), family()).text, /Wrong choice/);
+  });
+
+  it("can choose their own language, which is used for the whole session", () => {
+    // The mother uses Igbo; her husband picks Hausa (2*5) and then raises an emergency.
+    const menu = ussdMenu("2*5", family("ig"));
+    assert.equal(menu.type, "CON");
+    assert.equal(
+      menu.text,
+      fill(USSD_TEXTS.ha.familyMain, { name: "Funmilayo Adeyemi" }),
+    );
+
+    const done = ussdMenu("2*5*1*1", family("ig"));
+    assert.equal(done.type, "END");
+    assert.equal(
+      done.text,
+      fill(USSD_TEXTS.ha.familyEmergencySent, { name: "Funmilayo Adeyemi" }),
+    );
+    assert.deepEqual(done.action, { kind: "emergency", emergencyKind: "BLEEDING" });
+  });
+
+  it("continuing keeps the mother's language", () => {
+    const r = ussdMenu("1", family("ig"));
+    assert.equal(r.text, fill(USSD_TEXTS.ig.familyMain, { name: "Funmilayo Adeyemi" }));
+  });
+});
+
+describe("unknown caller", () => {
+  const unknown = (typedMother?: { name: string } | null): UssdContext => ({
+    actor: "unknown",
+    lang: "en",
+    typedMother,
+  });
+
+  it("has no welcome or language screen, and can only help a mother by her phone number", () => {
+    assert.match(ussdMenu("", unknown()).text, /Help a mother/);
+    assert.match(ussdMenu("1", unknown()).text, /Enter the mother's phone number/);
+  });
+
+  it("is told when the number is not a registered mother", () => {
+    const r = ussdMenu("1*08031234567", unknown(null));
+    assert.equal(r.type, "END");
+    assert.match(r.text, /could not find that mother/);
+  });
+
+  it("goes on to the emergency choices for a registered mother, and carries the typed number", () => {
+    const ask = ussdMenu("1*08031234567", unknown({ name: "Zainab Musa" }));
+    assert.equal(ask.type, "CON");
+    const done = ussdMenu("1*08031234567*1", unknown({ name: "Zainab Musa" }));
+    assert.equal(done.type, "END");
+    assert.deepEqual(done.action, {
+      kind: "emergency",
+      emergencyKind: "BLEEDING",
+      typedPhone: "08031234567",
+    });
+    assert.match(done.text, /Zainab Musa/);
+  });
+
+  it("learns nothing about mothers: no symptoms, visits or names before the lookup", () => {
+    assert.match(ussdMenu("2", unknown()).text, /not registered/);
+    assert.match(ussdMenu("3", unknown()).text, /not registered/);
   });
 });
 
@@ -274,8 +337,10 @@ describe("texts in every language", () => {
         welcomeScreen(lang),
         languageScreen(lang),
         t.main,
+        fill(t.familyMain, { name: "Funmilayo Adeyemi" }),
         t.emergencyAsk,
         t.emergencySent,
+        fill(t.familyEmergencySent, { name: "Funmilayo Adeyemi" }),
         ...USSD_SYMPTOM_ORDER.map((s) => t.question[s]),
         t.resultOk,
         t.resultSoon,
@@ -283,7 +348,10 @@ describe("texts in every language", () => {
         fill(t.nextVisit, { date: "Wed 25 Nov", n: 8 }),
         t.noVisit,
         t.wrong,
+        t.unknownMenu,
         t.unknownEnd,
+        t.familyAskPhone,
+        t.familyNotFound,
         t.actionFailed,
         t.smsConfirmed,
         t.smsHelp,
