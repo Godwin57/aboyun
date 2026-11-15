@@ -84,6 +84,24 @@ async function perform(
   action: UssdAction,
   caller: Awaited<ReturnType<typeof identifyCaller>>,
 ): Promise<boolean> {
+  if (action.kind === "setLanguage") {
+    // A mother's choice is saved to her profile, so the app, SMS and her next USSD session
+    // all use it. A family contact's choice lasts for this session only: saving it would
+    // change the mother's language, which is not theirs to change.
+    if (caller.kind !== "mother") return true;
+    await db.mother.update({
+      where: { id: caller.motherId },
+      data: { language: action.lang },
+    });
+    await logAudit({
+      actorType: "USSD",
+      action: "mother.language",
+      entity: "Mother",
+      entityId: caller.motherId,
+    });
+    return true;
+  }
+
   if (action.kind === "emergency") {
     const motherId =
       caller.kind === "mother" || caller.kind === "family"

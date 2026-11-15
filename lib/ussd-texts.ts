@@ -6,6 +6,15 @@
 export const LANGS = ["en", "pcm", "yo", "ig", "ha"] as const;
 export type Lang = (typeof LANGS)[number];
 
+/** Each language written in itself, in the order of the language menu (1 to 5). */
+export const LANG_NAMES: Record<Lang, string> = {
+  en: "English",
+  pcm: "Pidgin",
+  yo: "Yorùbá",
+  ig: "Igbo",
+  ha: "Hausa",
+};
+
 export function isLang(value: unknown): value is Lang {
   return typeof value === "string" && (LANGS as readonly string[]).includes(value);
 }
@@ -49,6 +58,11 @@ export type UssdTexts = {
   /** SMS replies. */
   smsConfirmed: string;
   smsHelp: string;
+  /** Words for the welcome screen, shown beside the English ones ("Welcome to Aboyun / Nnọọ"). */
+  welcomeWord: string;
+  continueWord: string;
+  languageWord: string;
+  chooseLanguage: string;
 };
 
 export const USSD_TEXTS: Record<Lang, UssdTexts> = {
@@ -88,6 +102,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     smsConfirmed: "Thank you. We have noted that you will come to your visit.",
     smsHelp:
       "Aboyun: reply 1 to confirm a visit. In an emergency text E (or E BLEEDING, E LABOUR, E FITS, E BABY).",
+    welcomeWord: "Welcome",
+    continueWord: "Continue",
+    languageWord: "Language",
+    chooseLanguage: "Choose language",
   },
   pcm: {
     main: "Aboyun\n1. Emergency\n2. Check how body dey\n3. My next visit",
@@ -124,6 +142,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     smsConfirmed: "Thank you. We don note say you go come your visit.",
     smsHelp:
       "Aboyun: reply 1 to confirm your visit. For emergency text E (or E BLEEDING, E LABOUR, E FITS, E BABY).",
+    welcomeWord: "Oya, welcome",
+    continueWord: "Make we continue",
+    languageWord: "Change language",
+    chooseLanguage: "Choose language",
   },
   yo: {
     main: "Aboyun\n1. Pàjáwìrì\n2. Ṣàyẹ̀wò àwọn àmì ara mi\n3. Ìbẹ̀wò mi tó kàn",
@@ -161,6 +183,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     smsConfirmed: "O ṣé. A ti kọ sílẹ̀ pé o máa wá sí ìbẹ̀wò rẹ.",
     smsHelp:
       "Aboyun: fèsì 1 láti jẹ́rìí ìbẹ̀wò. Nínú pàjáwìrì kọ E (tàbí E BLEEDING, E LABOUR, E FITS, E BABY).",
+    welcomeWord: "Káàbọ̀",
+    continueWord: "Tẹ̀síwájú",
+    languageWord: "Èdè",
+    chooseLanguage: "Yan èdè",
   },
   ig: {
     main: "Aboyun\n1. Ihe mberede\n2. Lelee ihe m na-enwe\n3. Nleta m ọzọ",
@@ -198,6 +224,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     smsConfirmed: "Daalụ. Edeela anyị na ị ga-abịa nleta gị.",
     smsHelp:
       "Aboyun: zaa 1 iji kwenye nleta. N’ọnọdụ mberede dee E (ma ọ bụ E BLEEDING, E LABOUR, E FITS, E BABY).",
+    welcomeWord: "Nnọọ",
+    continueWord: "Gaa n'ihu",
+    languageWord: "Asụsụ",
+    chooseLanguage: "Họrọ asụsụ",
   },
   ha: {
     main: "Aboyun\n1. Gaggawa\n2. Duba alamomina\n3. Ziyara ta ta gaba",
@@ -235,6 +265,10 @@ export const USSD_TEXTS: Record<Lang, UssdTexts> = {
     smsConfirmed: "Na gode. Mun lura za ki zo ziyararki.",
     smsHelp:
       "Aboyun: ki amsa 1 don tabbatar da ziyara. Cikin gaggawa ki aika E (ko E BLEEDING, E LABOUR, E FITS, E BABY).",
+    welcomeWord: "Barka da zuwa",
+    continueWord: "Ci gaba",
+    languageWord: "Harshe",
+    chooseLanguage: "Zaɓi harshe",
   },
 };
 
