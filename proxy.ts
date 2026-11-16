@@ -12,6 +12,20 @@ const AREA_ROLE: Record<string, Role> = {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // The sign-in form is submitted by script. If it ever reaches the server as a plain
+  // browser form (script not loaded, an old cached page), drop what was typed and show
+  // a clean sign-in page: a password must never sit in the address bar or the request
+  // logs. Server actions carry a Next-Action header and are left alone.
+  if (pathname === "/login") {
+    const { searchParams } = request.nextUrl;
+    const typedInUrl = searchParams.has("password") || searchParams.has("identifier");
+    const plainPost = request.method === "POST" && !request.headers.has("next-action");
+    if (typedInUrl || plainPost) {
+      return NextResponse.redirect(new URL("/login", request.url), 303);
+    }
+  }
+
   let session: Awaited<ReturnType<typeof auth.api.getSession>>;
   try {
     session = await auth.api.getSession({ headers: request.headers });

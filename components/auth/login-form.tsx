@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { syncLanguageAfterLogin } from "@/i18n/actions";
 import { authClient } from "@/lib/auth-client";
 import { looksLikeEmail, normalizeNgPhone } from "@/lib/phone";
+import { useHydrated } from "@/lib/use-hydrated";
 import { loginSchema, type AuthErrorKey } from "@/lib/validation";
 
 type Values = z.input<typeof loginSchema>;
@@ -24,6 +25,7 @@ export function LoginForm() {
   const t = useTranslations("Auth.login");
   const te = useTranslations("Errors");
   const router = useRouter();
+  const hydrated = useHydrated();
   const {
     register,
     handleSubmit,
@@ -60,7 +62,13 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      // If the script has not run, a native submit must never put the password in the URL.
+      method="post"
+      className="space-y-5"
+      noValidate
+    >
       <Field data-invalid={!!errors.identifier}>
         <FieldLabel htmlFor="identifier">{t("identifier")}</FieldLabel>
         <Input
@@ -87,7 +95,11 @@ export function LoginForm() {
         />
         <FieldError errors={message(errors.password)} />
       </Field>
-      <Button type="submit" className="h-12 w-full text-base" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        className="h-12 w-full text-base"
+        disabled={isSubmitting || !hydrated}
+      >
         {isSubmitting ? t("submitting") : t("submit")}
       </Button>
       <p className="text-muted-foreground text-center text-sm">{t("help")}</p>
