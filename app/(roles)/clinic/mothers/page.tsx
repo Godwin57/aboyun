@@ -165,7 +165,7 @@ export default async function MothersPage({
       </section>
 
       <section aria-label="Mothers" className="neu-card overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[820px] border-collapse text-[15px]">
             <thead>
               <tr className="text-muted-foreground bg-gradient-to-b from-[#f6f3ec] to-[#ece8de] text-left text-[13px] tracking-wide uppercase">
